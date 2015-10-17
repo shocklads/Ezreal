@@ -1,0 +1,14 @@
+F:\EloBuddy.Loader.Complete\MYADDON\EzrealTest\AddonTemplate\bin\Release\AddonTemplate.exe.config
+F:\EloBuddy.Loader.Complete\MYADDON\EzrealTest\AddonTemplate\bin\Release\AddonTemplate.exe
+F:\EloBuddy.Loader.Complete\MYADDON\EzrealTest\AddonTemplate\bin\Release\AddonTemplate.pdb
+F:\EloBuddy.Loader.Complete\MYADDON\EzrealTest\AddonTemplate\bin\Release\EloBuddy.dll
+F:\EloBuddy.Loader.Complete\MYADDON\EzrealTest\AddonTemplate\bin\Release\EloBuddy.SDK.dll
+F:\EloBuddy.Loader.Complete\MYADDON\EzrealTest\AddonTemplate\bin\Release\SharpDX.dll
+F:\EloBuddy.Loader.Complete\MYADDON\EzrealTest\AddonTemplate\bin\Release\SharpDX.Direct3D9.dll
+F:\EloBuddy.Loader.Complete\MYADDON\EzrealTest\AddonTemplate\bin\Release\Newtonsoft.Json.dll
+F:\EloBuddy.Loader.Complete\MYADDON\EzrealTest\AddonTemplate\obj\Debug\AddonTemplate.csprojResolveAssemblyReference.cache
+F:\EloBuddy.Loader.Complete\MYADDON\EzrealTest\AddonTemplate\obj\Debug\AddonTemplate.exe
+F:\EloBuddy.Loader.Complete\MYADDON\EzrealTest\AddonTemplate\obj\Debug\AddonTemplate.pdb
+F:\Repository\Elobuddy-Addons\Hi I'm Ezreal\AddonTemplate\bin\Release\AddonTemplate.exe.config
+F:\Repository\Elobuddy-Addons\Hi I'm Ezreal\AddonTemplate\obj\Debug\AddonTemplate.exe
+F:\Repository\Elobuddy-Addons\Hi I'm Ezreal\AddonTemplate\obj\Debug\AddonTemplate.pdb
