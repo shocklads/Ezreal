@@ -6,7 +6,10 @@ namespace AddonTemplate
 {
     public static class KillSteal
     {
-        private static AIHeroClient MyHero => ObjectManager.Player;
+        private static AIHeroClient MyHero
+        {
+            get { return ObjectManager.Player; }
+        }
 
         public static bool IsKsable(this AIHeroClient target, SpellSlot spell)
         {

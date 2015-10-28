@@ -9,7 +9,7 @@ namespace AddonTemplate
 {
     public static class ModeManager
     {
-        private static List<ModeBase> Modes { get; }
+        private static List<ModeBase> Modes { get; set; }
 
         static ModeManager()
         {

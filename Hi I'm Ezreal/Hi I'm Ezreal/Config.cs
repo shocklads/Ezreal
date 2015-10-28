@@ -64,17 +64,32 @@ namespace AddonTemplate
                 private static readonly CheckBox _useR;
                 private static readonly Slider _numberR;
 
-                public static bool UseQ => _useQ.CurrentValue;
+                public static bool UseQ
+                {
+                    get { return _useQ.CurrentValue; }
+                }
 
-                public static bool UseW => _useW.CurrentValue;
+            public static bool UseW
+            {
+                get { return _useW.CurrentValue; }
+            }
 
-                public static bool UseE => _useE.CurrentValue;
+            public static bool UseE
+            {
+                get { return _useE.CurrentValue; }
+            }
 
-                public static bool UseR => _useR.CurrentValue;
+            public static bool UseR
+            {
+                get { return _useR.CurrentValue; }
+            }
 
-                public static int NumberR => _numberR.CurrentValue;
+            public static int NumberR
+            {
+                get { return _numberR.CurrentValue; }
+            }
 
-                static Combo()
+            static Combo()
                 {
                     MenuCombo.AddGroupLabel("Combo");
                     _useQ = MenuCombo.Add("comboUseQ", new CheckBox("Use Q"));
@@ -97,13 +112,25 @@ namespace AddonTemplate
                 private static readonly Slider _manaQ;
                 private static readonly Slider _manaW;
 
-                public static bool UseQ => _useQ.CurrentValue;
+                public static bool UseQ
+                {
+                    get { return _useQ.CurrentValue; }
+                }
 
-                public static bool UseW => _useW.CurrentValue;
+                public static bool UseW
+                {
+                    get { return _useW.CurrentValue; }
+                }
 
-                public static int ManaQ => _manaQ.CurrentValue;
+                public static int ManaQ
+                {
+                    get { return _manaQ.CurrentValue; }
+                }
 
-                public static int ManaW => _manaW.CurrentValue;
+                public static int ManaW
+                {
+                    get { return _manaW.CurrentValue; }
+                }
 
                 static Harass()
                 {
@@ -131,15 +158,30 @@ namespace AddonTemplate
                 public static readonly Slider _skinhax;
                 public static string[] skinName = { "Classic Ezreal", "Nottingham Ezreal", "Striker Ezreal", "Frosted Ezreal", "Explorer Ezreal", "Pulsefire Ezreal", "TPA Ezreal", "Debonair Ezreal", "Ace of Spades Ezreal" };
 
-                public static bool DrawQ => _drawQ.CurrentValue;
+                public static bool DrawQ
+                {
+                    get { return _drawQ.CurrentValue; }
+                }
 
-                public static bool DrawW => _drawW.CurrentValue;
+                public static bool DrawW
+                {
+                    get { return _drawW.CurrentValue; }
+                }
 
-                public static bool DrawE => _drawE.CurrentValue;
+                public static bool DrawE
+                {
+                    get { return _drawE.CurrentValue; }
+                }
 
-                public static bool OnlyRdy => _onlyRdy.CurrentValue;
+                public static bool OnlyRdy
+                {
+                    get { return _onlyRdy.CurrentValue; }
+                }
 
-                public static int SkinHax => _skinhax.CurrentValue;
+                public static int SkinHax
+                {
+                    get { return _skinhax.CurrentValue; }
+                }
 
                 static Draw()
                 {
@@ -166,13 +208,35 @@ namespace AddonTemplate
                 private static readonly CheckBox _DragonSteal;
                 private static readonly CheckBox _BaronSteal;
 
-                public static bool KsQ => _KsQ.CurrentValue;
-                public static bool KsW => _KsW.CurrentValue;
-                public static bool RedSteal => _RedSteal.CurrentValue;
-                public static bool BlueSteal => _BlueSteal.CurrentValue;
-                public static bool DragonSteal => _DragonSteal.CurrentValue;
+                public static bool KsQ
+                {
+                    get { return _KsQ.CurrentValue; }
+                }
 
-                public static bool BaronSteal => _BaronSteal.CurrentValue;
+                public static bool KsW
+                {
+                    get { return _KsW.CurrentValue; }
+                }
+
+                public static bool RedSteal
+                {
+                    get { return _RedSteal.CurrentValue; }
+                }
+
+                public static bool BlueSteal
+                {
+                    get { return _BlueSteal.CurrentValue; }
+                }
+
+                public static bool DragonSteal
+                {
+                    get { return _DragonSteal.CurrentValue; }
+                }
+
+                public static bool BaronSteal
+                {
+                    get { return _BaronSteal.CurrentValue; }
+                }
 
                 static KillSteal()
                 {
@@ -201,15 +265,30 @@ namespace AddonTemplate
                 private static readonly Slider _manaQ;
                 private static readonly Slider _manaW;
 
-                public static bool UseQLastHit => _QLastHit.CurrentValue;
+                public static bool UseQLastHit
+                {
+                    get { return _QLastHit.CurrentValue; }
+                }
 
-                public static bool UseWOnAlly => _WOnAlly.CurrentValue;
+                public static bool UseWOnAlly
+                {
+                    get { return _WOnAlly.CurrentValue; }
+                }
 
-                public static int NumberW => _NumberW.CurrentValue;
+                public static int NumberW
+                {
+                    get { return _NumberW.CurrentValue; }
+                }
 
-                public static int ManaQ => _manaQ.CurrentValue;
+                public static int ManaQ
+                {
+                    get { return _manaQ.CurrentValue; }
+                }
 
-                public static int ManaW => _manaW.CurrentValue;
+                public static int ManaW
+                {
+                    get { return _manaW.CurrentValue; }
+                }
 
                 static Clear()
                 {
@@ -242,21 +321,45 @@ namespace AddonTemplate
 
 
 
-                public static bool CcQ => _CcQ.CurrentValue;
+                public static bool CcQ
+                {
+                    get { return _CcQ.CurrentValue; }
+                }
 
-                public static bool CcW => _CcW.CurrentValue;
+                public static bool CcW
+                {
+                    get { return _CcW.CurrentValue; }
+                }
 
-                public static bool UseQOnUnkillable => _UseQOnUnkillable.CurrentValue;
+                public static bool UseQOnUnkillable
+                {
+                    get { return _UseQOnUnkillable.CurrentValue; }
+                }
 
-                public static bool SelfW => _SelfW.CurrentValue;
+                public static bool SelfW
+                {
+                    get { return _SelfW.CurrentValue; }
+                }
 
-                public static bool UseQUnderTurret => _UseQUnderTurret.CurrentValue;
+                public static bool UseQUnderTurret
+                {
+                    get { return _UseQUnderTurret.CurrentValue; }
+                }
 
-                public static int PredQ => _PredQ.CurrentValue;
+                public static int PredQ
+                {
+                    get { return _PredQ.CurrentValue; }
+                }
 
-                public static int PredW => _PredW.CurrentValue;
+                public static int PredW
+                {
+                    get { return _PredW.CurrentValue; }
+                }
 
-                public static int PredR => _PredR.CurrentValue;
+                public static int PredR
+                {
+                    get { return _PredR.CurrentValue; }
+                }
 
 
                 static Misc()
