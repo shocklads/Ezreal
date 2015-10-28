@@ -29,7 +29,7 @@ namespace AddonTemplate
             Player.Instance.SetSkin(Player.Instance.ChampionName, Config.Modes.Draw._skinhax.CurrentValue);
             Config.Modes.Misc._SelfW.OnValueChange += GameEvent.SelfW_OnValueChanged;
             Config.Modes.Draw._skinhax.OnValueChange += GameEvent.SkinHax_OnValueChanged;
-            Gapcloser.OnGapcloser += GameEvent.Gapcloser_OnGapCloser;
+           // Gapcloser.OnGapcloser += GameEvent.Gapcloser_OnGapCloser;
             Obj_AI_Base.OnBasicAttack += GameEvent.ObjTurret_OnTurretDamage;
         }
     }
