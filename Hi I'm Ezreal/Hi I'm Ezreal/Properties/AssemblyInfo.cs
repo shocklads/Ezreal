@@ -2,12 +2,12 @@
 using System.Runtime.InteropServices;
 
 
-[assembly: AssemblyTitle("AddonTemplate")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Hi I'm ezreal")]
+[assembly: AssemblyDescription("EloBuddy Ezreal Addon")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AddonTemplate")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyProduct("Hi I'm ezreal")]
+[assembly: AssemblyCopyright("GinjiBan © 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

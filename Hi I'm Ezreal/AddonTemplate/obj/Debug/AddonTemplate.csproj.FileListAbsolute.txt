@@ -1,2 +1,0 @@
-F:\Repository\Elobuddy-Addons\Hi I'm Ezreal\AddonTemplate\obj\Debug\AddonTemplate.csprojResolveAssemblyReference.cache
-F:\Repository\Elobuddy-Addons\Hi I'm Ezreal\AddonTemplate\bin\Release\AddonTemplate.exe.config
