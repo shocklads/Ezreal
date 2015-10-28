@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using EloBuddy;
 using EloBuddy.SDK;
@@ -10,27 +9,39 @@ namespace AddonTemplate.Modes
     {
         public override bool ShouldBeExecuted()
         {
-            // Only execute this mode when the orbwalker is on laneclear mode
             return (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear)
                 || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear));
         }
 
         public override void Execute()
         {
-            if (Config.Modes.Clear.UseQLastHit && Q.IsReady())
+            if (Config.Modes.Clear.UseQLastHit && Q.IsReady() && Player.Instance.ManaPercent > Config.Modes.Clear.ManaQ)
             {
-                foreach (
-                    var minions in
-                        EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy,
-                            Player.Instance.ServerPosition, SpellManager.Q.Range))
+                bool lastQ = false;
+                var minions = EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy,
+                    Player.Instance.ServerPosition, SpellManager.Q.Range).OrderBy(h => h.Health);
                 {
-                    if (Player.Instance.GetSpellDamage(minions, SpellSlot.Q) >= minions.Health)
-                        Q.Cast(minions);
+                    foreach (var minion in minions)
+                    {
+                        if (Player.Instance.GetSpellDamage(minion, SpellSlot.Q) >= minion.Health && Player.Instance.GetAutoAttackDamage(minion, true) < minion.Health)
+                        {
+                            Q.Cast(minion);
+                            lastQ = true;
+                        }
+                    }
+                    if (minions.Any() && !lastQ)
+                    {
+                        var test = minions.GetEnumerator();
+                        while (test.MoveNext())
+                        {
+                            Q.Cast(minions.Last());
+                        }
+                    }
                 }
             }
 
 
-            if (Config.Modes.Clear.UseWOnAlly && W.IsReady())
+            if (Config.Modes.Clear.UseWOnAlly && W.IsReady() && Player.Instance.ManaPercent > Config.Modes.Clear.ManaW)
             {
                 var heroes = EntityManager.Heroes.Allies;
                 var collision = new List<AIHeroClient>();

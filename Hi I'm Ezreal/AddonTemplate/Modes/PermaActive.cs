@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using EloBuddy;
 using EloBuddy.SDK;
-using AddonTemplate;
-using EloBuddy.SDK.Events;
 using Settings = AddonTemplate.Config.Modes.KillSteal;
-using SharpDX;
 
 namespace AddonTemplate.Modes
 {
@@ -20,61 +15,58 @@ namespace AddonTemplate.Modes
 
         public override void Execute()
         {
-            KSChamp();
-            AutoCCed();
-            KSBuff();
-            QIfUnkillable();
+            if (!Player.Instance.IsRecalling())
+            {
+                KsChamp();
+                AutoCCed();
+              //  KsBuff();
+                QIfUnkillable();
+            }
         }
 
-        private void QIfUnkillable()
+        private static void QIfUnkillable()
         {
             foreach (var minions in EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy, Player.Instance.ServerPosition, SpellManager.Q.Range))
             {
-                if (Prediction.Health.GetPrediction(minions, (int)Player.Instance.AttackDelay * 1000 + Game.Ping / 2) <= 0)
+                if (Prediction.Health.GetPrediction(minions, (int)(Player.Instance.AttackDelay * 1000)) <= 0)
                 {
                     if (Config.Modes.Misc.UseQOnUnkillable &&
-                        Player.Instance.GetSpellDamage(minions, SpellSlot.Q) >= minions.Health)
+                        Player.Instance.GetSpellDamage(minions, SpellSlot.Q) >= minions.Health && (Orbwalker.LastTarget == null || Orbwalker.LastTarget.NetworkId != minions.NetworkId))
                         Q.Cast(minions);
                 }
             }
         }
 
-        private static AIHeroClient myHero { get { return ObjectManager.Player; } }
-        public static void KSChamp()
+       // private static AIHeroClient MyHero => ObjectManager.Player;
+
+        public static void KsChamp()
         {
-            foreach (AIHeroClient enemy in EntityManager.Heroes.Enemies.Where(enemy => enemy.IsValidTarget(Q.Range)))
+
+            foreach (var enemy in EntityManager.Heroes.Enemies.Where(enemy => enemy.IsValidTarget(Q.Range)))
             {
                 if (Settings.KsQ && Q.IsReady() && enemy.IsKsable(SpellSlot.Q))
                 {
                     Q.Cast(enemy);
                 }
             }
-            foreach (AIHeroClient enemy in EntityManager.Heroes.Enemies.Where(enemy => enemy.IsValidTarget(W.Range)))
+            foreach (var enemy in EntityManager.Heroes.Enemies.Where(enemy => enemy.IsValidTarget(W.Range)))
             {
-                if (Settings.KsW && W.IsReady() && enemy.IsKsable(SpellSlot.W) && (!Q.IsReady() || !enemy.IsKsable(SpellSlot.Q)))
+                if (Settings.KsW && W.IsReady() && enemy.IsKsable(SpellSlot.W))
                 {
                     W.Cast(enemy);
-                }
-            }
-            foreach (AIHeroClient enemy in EntityManager.Heroes.Enemies.Where(enemy => enemy.IsValidTarget(Int32.MaxValue)))
-            {
-                if (Settings.KsR && R.IsReady() && enemy.IsKsable(SpellSlot.R)
-                    && ((!Q.IsReady() || !enemy.IsKsable(SpellSlot.Q)) && (!W.IsReady() || !enemy.IsKsable(SpellSlot.W))))
-                {
-                    R.Cast(enemy);
                 }
             }
         }
 
         public static void AutoCCed()
         {
-            string[] HardCC =
+            string[] hardCc =
             {
                 "Charm", "Fear", "Flee", "Knockup", "Polymorph", "Sleep", "Slow", "Snare", "Stun", "Suppression", "Taunt"
             };
-            foreach (AIHeroClient enemy in EntityManager.Heroes.Enemies)
+            foreach (var enemy in EntityManager.Heroes.Enemies)
             {
-                foreach (string debuff in HardCC.Where(debuff => enemy.HasBuffOfType((BuffType)Enum.Parse(typeof(BuffType), debuff))))
+                foreach (var debuff in hardCc.Where(debuff => enemy.HasBuffOfType((BuffType)Enum.Parse(typeof(BuffType), debuff))))
                 {
                     if (Config.Modes.Misc.CcQ && Q.IsReady())
                     {
@@ -87,71 +79,58 @@ namespace AddonTemplate.Modes
                 }
             }
         }
-
-        public static void KSBuff()
-        {
-            var MonstersBuff = new List<String>();
-            if (Config.Modes.Misc.DragonSteal)
-                MonstersBuff.Add("SRU_Dragon");
-            if (Config.Modes.Misc.BaronSteal)
-                MonstersBuff.Add("SRU_Baron");
-
-
-
-
-            //List<Obj_AI_Minion> JungleBuffs = EntityManager.MinionsAndMonsters.GetJungleMonsters(null, Int32.MaxValue, true).ToList();
-            var 
-            jungleBuffs = EntityManager.MinionsAndMonsters.GetJungleMonsters().Where(
-                a => a.Distance(Player.Instance) < 2000000 && !a.IsDead && !a.IsInvulnerable).ToList();
-        
-            if (myHero.Team.ToString().Equals("Order"))
-            {
-                if (Config.Modes.Misc.RedSteal)
-                    MonstersBuff.Add("SRU_Red10.1.1");
-                if (Config.Modes.Misc.BlueSteal)
-                    MonstersBuff.Add("SRU_Blue7.1.1");
-            }
-            else
-            {
-                if (Config.Modes.Misc.BlueSteal)
-                    MonstersBuff.Add("SRU_Blue1.1.1");
-                if (Config.Modes.Misc.RedSteal)
-                    MonstersBuff.Add("SRU_Red4.1.1");
-            }
-
-            foreach (Obj_AI_Minion mob in jungleBuffs)
-            {
-                foreach (string name in MonstersBuff)
+        /*
+                public static void KsBuff()
                 {
-                    if (Regex.IsMatch(mob.Name, name + "[0-9.]*$"))
-                    {
-                        var level = Player.Instance.Spellbook.GetSpell(SpellSlot.R).Level - 1;
+                    var monstersBuff = new List<String>();
+                    if (Config.Modes.KillSteal.DragonSteal)
+                        monstersBuff.Add("SRU_Dragon");
+                    if (Config.Modes.KillSteal.BaronSteal)
+                        monstersBuff.Add("SRU_Baron");
 
-                        float damage = new float[] { 350, 500, 650 }[level] + 0.9f * Player.Instance.FlatMagicDamageMod + 1 * Player.Instance.FlatPhysicalDamageMod;
-                        double total = Player.Instance.CalculateDamageOnUnit(mob, DamageType.Magical, damage) * 0.7;
-                        Chat.Print("totla : " + total + " Get : " + myHero.GetSpellDamage(mob, SpellSlot.R));
+                    List<Obj_AI_Minion> jungleBuffs = EntityManager.MinionsAndMonsters.GetJungleMonsters(null, Int32.MaxValue, true).ToList();
+                    if (MyHero.Team.ToString().Equals("Order"))
+                    {
+                        if (Config.Modes.KillSteal.RedSteal)
+                            monstersBuff.Add("SRU_Red10.1.1");
+                        if (Config.Modes.KillSteal.BlueSteal)
+                            monstersBuff.Add("SRU_Blue7.1.1");
                     }
-                    var distance = Vector3.Distance(Player.Instance.ServerPosition, mob.Position);
-                    var timeQ = (distance / SpellManager.Q.Speed + SpellManager.Q.CastDelay) * 1000;
-                    var timeR = (distance / SpellManager.R.Speed + SpellManager.R.CastDelay) * 1000;
-
-                    Chat.Print("Time " + timeR + " Rounded : " + (int)timeR);
-
-                    if (Prediction.Health.GetPrediction(mob, (int)timeQ) <= myHero.GetSpellDamage(mob, SpellSlot.Q)
-                        && Prediction.Health.GetPrediction(mob, (int)timeQ) >= 0)
+                    else
                     {
-                        Q.Cast(mob);
+                        if (Config.Modes.KillSteal.BlueSteal)
+                            monstersBuff.Add("SRU_Blue1.1.1");
+                        if (Config.Modes.KillSteal.RedSteal)
+                            monstersBuff.Add("SRU_Red4.1.1");
                     }
-                    else if (Prediction.Health.GetPrediction(mob, (int)timeR) <= myHero.GetSpellDamage(mob, SpellSlot.R)
-                      && Prediction.Health.GetPrediction(mob, (int)timeR) >= 0)
+
+                    foreach (Obj_AI_Minion mob in jungleBuffs)
                     {
-                        if (!Player.Instance.Spellbook.IsChanneling)
-                            TacticalMap.SendPing(PingCategory.OnMyWay, mob);
-                        R.Cast(mob);
+                        foreach (string name in monstersBuff)
+                        {
+                            if (Regex.IsMatch(mob.Name, name + "[0-9.]*$"))
+                            {
+                                var timeQ = (distance / SpellManager.Q.Speed + SpellManager.Q.CastDelay) * 1000;
+                                var timeR = 1000 * (int)(Extensions.Distance(Player.Instance, mob) / SpellManager.R.Speed) + SpellManager.R.CastDelay;
+                                var predHealth = Prediction.Health.GetPrediction(mob, timeR);
+
+                                Chat.Print("TimeR : " + timeR + " Pred : " + predHealth);
+
+                               if (Prediction.Health.GetPrediction(mob, (int)timeQ) <= MyHero.GetSpellDamage(mob, SpellSlot.Q)
+                                    && Prediction.Health.GetPrediction(mob, (int)timeQ) >= 0)
+                                {
+                                    Q.Cast(mob);
+                                }
+                                if (predHealth <= MyHero.GetSpellDamage(mob, SpellSlot.R) - ((myHero.GetSpellDamage(mob, SpellSlot.R) / 100) * 30)) && predHealth >= 0)
+                                {
+                                    R.Cast(mob);
+                                }
+                            }
+                        }
                     }
                 }
-            }
-        }
+                */
     }
+
 }
 

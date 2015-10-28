@@ -21,7 +21,6 @@ namespace AddonTemplate
 
         public static void Initialize()
         {
-            // Let the static initializer do the job, this way we avoid multiple init calls aswell
         }
 
         public static HitChance PredQ()
@@ -35,8 +34,6 @@ namespace AddonTemplate
                     return HitChance.Medium;
                 case 3:
                     return HitChance.High;
-                case 4:
-                    return HitChance.Collision;
             }
             return HitChance.Medium;
         }
@@ -51,8 +48,6 @@ namespace AddonTemplate
                     return HitChance.Medium;
                 case 3:
                     return HitChance.High;
-                case 4:
-                    return HitChance.Collision;
             }
             return HitChance.Medium;
         }
@@ -67,8 +62,6 @@ namespace AddonTemplate
                     return HitChance.Medium;
                 case 3:
                     return HitChance.High;
-                case 4:
-                    return HitChance.Collision;
             }
             return HitChance.Medium;
         }
