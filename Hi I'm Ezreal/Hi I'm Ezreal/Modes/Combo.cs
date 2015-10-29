@@ -44,18 +44,17 @@ namespace AddonTemplate.Modes
             }
             if (Settings.UseR && R.IsReady())
             {
-                var target = TargetSelector.GetTarget(5000, DamageType.Physical);
+                var target = TargetSelector.GetTarget(7000, DamageType.Physical);
                 if (target != null && R.GetPrediction(target).HitChance >= SpellManager.PredR())
                 {
                     var heroes = EntityManager.Heroes.Enemies;
                     var collision = new List<AIHeroClient>();
                     var startPos = Player.Instance.Position.To2D();
 
-                    foreach (var hero in heroes.Where(hero => !hero.IsDead))
+                    foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible))
                     {
                         collision.Clear();
-                        collision.Add(target);
-                        var endPos = startPos.Extend(hero.Position.To2D(), Int32.MaxValue);
+                        var endPos = startPos.Extend(hero.Position.To2D(), int.MaxValue);
                         if (Prediction.Position.Collision.LinearMissileCollision(hero, startPos, endPos,
                             SpellManager.R.Speed, SpellManager.R.Width, SpellManager.R.CastDelay))
                         {
