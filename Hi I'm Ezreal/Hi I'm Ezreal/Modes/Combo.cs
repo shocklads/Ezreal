@@ -44,25 +44,23 @@ namespace AddonTemplate.Modes
             }
             if (Settings.UseR && R.IsReady())
             {
-                var target = TargetSelector.GetTarget(7000, DamageType.Physical);
-                if (target != null && R.GetPrediction(target).HitChance >= SpellManager.PredR())
+                var heroes = EntityManager.Heroes.Enemies;
+                foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible && hero.IsInRange(Player.Instance, 10000)))
                 {
-                    var heroes = EntityManager.Heroes.Enemies;
                     var collision = new List<AIHeroClient>();
                     var startPos = Player.Instance.Position.To2D();
-
-                    foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible))
+                    var endPos = startPos.Extend(hero.Position.To2D(), 1500);
+                    collision.Clear();
+                    foreach (var colliHero in heroes.Where(colliHero => !colliHero.IsDead && colliHero.IsVisible && colliHero.IsInRange(hero, 3000)))
                     {
-                        collision.Clear();
-                        var endPos = startPos.Extend(hero.Position.To2D(), int.MaxValue);
-                        if (Prediction.Position.Collision.LinearMissileCollision(hero, startPos, endPos,
+                        if (Prediction.Position.Collision.LinearMissileCollision(colliHero, startPos, endPos,
                             SpellManager.R.Speed, SpellManager.R.Width, SpellManager.R.CastDelay))
                         {
-                            collision.Add(hero);
+                            collision.Add(colliHero);
                         }
                         if (collision.Count >= Settings.NumberR)
                         {
-                            R.Cast(hero.Position);
+                            R.Cast(hero);
                         }
                     }
                 }
