@@ -301,7 +301,6 @@ namespace AddonTemplate
                     MenuClear.AddGroupLabel("Mana Management");
                     _manaQ = MenuClear.Add("clearManaQ", new Slider("Minimum mana to use Q ({0}%)", 40));
                     _manaW = MenuClear.Add("clearManaW", new Slider("Minimum mana to use W ({0}%)", 40));
-
                 }
 
                 public static void Initialize()
@@ -313,12 +312,12 @@ namespace AddonTemplate
                 private static readonly CheckBox _CcQ;
                 private static readonly CheckBox _CcW;
                 private static readonly CheckBox _UseQOnUnkillable;
+                private static readonly CheckBox _EGapClos;
                 private static readonly CheckBox _UseQUnderTurret;
                 private static readonly Slider _PredQ;
                 private static readonly Slider _PredW;
                 private static readonly Slider _PredR;
                 public static KeyBind _SelfW;
-
 
 
                 public static bool CcQ
@@ -360,27 +359,29 @@ namespace AddonTemplate
                 {
                     get { return _PredR.CurrentValue; }
                 }
-
+                public static bool EGapClos
+                {
+                    get { return _EGapClos.CurrentValue; }
+                }
 
                 static Misc()
                 {
                     MenuMisc.AddGroupLabel("CCed target");
                     _CcQ = MenuMisc.Add("CCQ", new CheckBox("Use Q on CCed enemy"));
                     _CcW = MenuMisc.Add("CCW", new CheckBox("Use W on CCed enemy"));
-                    MenuMisc.AddSeparator();
                     MenuMisc.AddGroupLabel("Use Q to secure minion");
                     _UseQOnUnkillable = MenuMisc.Add("QUnkillable", new CheckBox("Use Q if can't kill minion with AA"));
                     _UseQUnderTurret = MenuMisc.Add("QUnderTurret", new CheckBox("Use Q if can't kill minion with AA under turret"));
-                    MenuMisc.AddSeparator();
                     MenuMisc.AddGroupLabel("Use W and E to get attack speed");
                     _SelfW = MenuMisc.Add("SelfW", new KeyBind("Self W", false, KeyBind.BindTypes.HoldActive, 'J'));
+                    MenuMisc.AddGroupLabel("Use E on Gap closer");
+                    _EGapClos = MenuMisc.Add("EGapClos", new CheckBox("Use E on Gap closer"));
                     MenuMisc.AddSeparator();
                     MenuMisc.AddGroupLabel("Hit Chance");
                     MenuMisc.AddLabel("HitChance : 1 = Low, 2 = Medium, 3 = High");
-                    _PredQ = MenuMisc.Add("PredQ", new Slider("Q HitChance", 2, 1, 3));
-                    _PredW = MenuMisc.Add("PredW", new Slider("W HitChance", 2, 1, 3));
-                    _PredR = MenuMisc.Add("PredR", new Slider("R HitChance", 2, 1, 3));
-            
+                    _PredQ = MenuMisc.Add("PredQ", new Slider("Q HitChance", 3, 1, 3));
+                    _PredW = MenuMisc.Add("PredW", new Slider("W HitChance", 3, 1, 3));
+                    _PredR = MenuMisc.Add("PredR", new Slider("R HitChance", 3, 1, 3));
                 }
 
                 public static void Initialize()

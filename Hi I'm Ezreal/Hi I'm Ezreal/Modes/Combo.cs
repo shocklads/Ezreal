@@ -44,7 +44,7 @@ namespace AddonTemplate.Modes
             }
             if (Settings.UseR && R.IsReady())
             {
-                var target = TargetSelector.GetTarget(R.Range, DamageType.Physical);
+                var target = TargetSelector.GetTarget(5000, DamageType.Physical);
                 if (target != null && R.GetPrediction(target).HitChance >= SpellManager.PredR())
                 {
                     var heroes = EntityManager.Heroes.Enemies;
