@@ -28,7 +28,7 @@ namespace AddonTemplate.Modes
         {
             foreach (var minions in EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy, Player.Instance.ServerPosition, SpellManager.Q.Range))
             {
-                if (Prediction.Health.GetPrediction(minions, (int)(Player.Instance.AttackDelay * 1000)) <= 0)
+                if (Prediction.Health.GetPrediction(minions, (int)(Player.Instance.AttackDelay * 1000)) <= 0 && !Orbwalker.CanAutoAttack)
                 {
                     if (Config.Modes.Misc.UseQOnUnkillable &&
                         Player.Instance.GetSpellDamage(minions, SpellSlot.Q) >= minions.Health && (Orbwalker.LastTarget == null || Orbwalker.LastTarget.NetworkId != minions.NetworkId))
