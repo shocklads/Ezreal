@@ -155,6 +155,7 @@ namespace AddonTemplate
                 private static readonly CheckBox _drawW;
                 private static readonly CheckBox _drawE;
                 private static readonly CheckBox _onlyRdy;
+                private static readonly CheckBox _useHax;
                 public static readonly Slider _skinhax;
                 public static string[] skinName = { "Classic Ezreal", "Nottingham Ezreal", "Striker Ezreal", "Frosted Ezreal", "Explorer Ezreal", "Pulsefire Ezreal", "TPA Ezreal", "Debonair Ezreal", "Ace of Spades Ezreal" };
 
@@ -177,6 +178,10 @@ namespace AddonTemplate
                 {
                     get { return _onlyRdy.CurrentValue; }
                 }
+                public static bool UseHax
+                {
+                    get { return _useHax.CurrentValue; }
+                }
 
                 public static int SkinHax
                 {
@@ -192,6 +197,7 @@ namespace AddonTemplate
                     _onlyRdy = MenuDraw.Add("onlyRdy", new CheckBox("Draw only when spell is not on cooldown"));
                     MenuDraw.AddSeparator();
                     MenuDraw.AddGroupLabel("Skin hack");
+                    _useHax = MenuDraw.Add("UseHax", new CheckBox("Enable skin hack", false));
                     _skinhax = MenuDraw.Add("skinhax", new Slider("Skin hack", 0, skinName.Length - 1, 0));
                 }
 

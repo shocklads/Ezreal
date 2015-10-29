@@ -19,25 +19,33 @@ namespace AddonTemplate.Modes
             {
                 KsChamp();
                 AutoCCed();
-              //  KsBuff();
+                //  KsBuff();
                 QIfUnkillable();
             }
         }
 
         private static void QIfUnkillable()
         {
-            foreach (var minions in EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy, Player.Instance.ServerPosition, SpellManager.Q.Range))
+            if (Player.Instance.ManaPercent > Config.Modes.Clear.ManaQ)
             {
-                if (Prediction.Health.GetPrediction(minions, (int)(Player.Instance.AttackDelay * 1000)) <= 0 && !Orbwalker.CanAutoAttack)
+                foreach (
+                    var minions in
+                        EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy,
+                            Player.Instance.ServerPosition, SpellManager.Q.Range))
                 {
-                    if (Config.Modes.Misc.UseQOnUnkillable &&
-                        Player.Instance.GetSpellDamage(minions, SpellSlot.Q) >= minions.Health && (Orbwalker.LastTarget == null || Orbwalker.LastTarget.NetworkId != minions.NetworkId))
-                        Q.Cast(minions);
+                    if (Prediction.Health.GetPrediction(minions, (int)(Player.Instance.AttackDelay * 1000)) <= 0 &&
+                        !Orbwalker.CanAutoAttack)
+                    {
+                        if (Config.Modes.Misc.UseQOnUnkillable &&
+                            Player.Instance.GetSpellDamage(minions, SpellSlot.Q) >= minions.Health &&
+                            (Orbwalker.LastTarget == null || Orbwalker.LastTarget.NetworkId != minions.NetworkId))
+                            Q.Cast(minions);
+                    }
                 }
             }
         }
 
-       // private static AIHeroClient MyHero => ObjectManager.Player;
+        // private static AIHeroClient MyHero => ObjectManager.Player;
 
         public static void KsChamp()
         {
@@ -60,24 +68,34 @@ namespace AddonTemplate.Modes
 
         public static void AutoCCed()
         {
-            string[] hardCc =
+
+            var turret = EntityManager.Turrets.Enemies.FirstOrDefault(x => x.Distance(Player.Instance.Position) <= 775 && !x.IsAlly && !x.IsDead);
+            if (turret == null)
             {
-                "Charm", "Fear", "Flee", "Knockup", "Polymorph", "Sleep", "Slow", "Snare", "Stun", "Suppression", "Taunt"
-            };
-            foreach (var enemy in EntityManager.Heroes.Enemies)
-            {
-                foreach (var debuff in hardCc.Where(debuff => enemy.HasBuffOfType((BuffType)Enum.Parse(typeof(BuffType), debuff))))
+                string[] hardCc =
                 {
-                    if (Config.Modes.Misc.CcQ && Q.IsReady())
+                    "Charm", "Fear", "Flee", "Knockup", "Polymorph", "Sleep", "Slow", "Snare", "Stun", "Suppression",
+                    "Taunt"
+                };
+                foreach (var enemy in EntityManager.Heroes.Enemies)
+                {
+                    foreach (
+                        var debuff in
+                            hardCc.Where(debuff => enemy.HasBuffOfType((BuffType)Enum.Parse(typeof(BuffType), debuff)))
+                        )
                     {
-                        Q.Cast(enemy);
-                    }
-                    if (Config.Modes.Misc.CcW && W.IsReady())
-                    {
-                        W.Cast(enemy);
+                        if (Config.Modes.Misc.CcQ && Q.IsReady())
+                        {
+                            Q.Cast(enemy);
+                        }
+                        if (Config.Modes.Misc.CcW && W.IsReady())
+                        {
+                            W.Cast(enemy);
+                        }
                     }
                 }
             }
+
         }
         /*
                 public static void KsBuff()

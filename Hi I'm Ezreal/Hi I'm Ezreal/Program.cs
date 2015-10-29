@@ -25,10 +25,8 @@ namespace AddonTemplate
             ModeManager.Initialize();
 
             Drawing.OnDraw += GameEvent.OnDraw;
-            Config.Modes.Draw._skinhax.DisplayName = Config.Modes.Draw.skinName[Config.Modes.Draw._skinhax.CurrentValue];
-            Player.Instance.SetSkin(Player.Instance.ChampionName, Config.Modes.Draw._skinhax.CurrentValue);
-            Config.Modes.Misc._SelfW.OnValueChange += GameEvent.SelfW_OnValueChanged;
             Config.Modes.Draw._skinhax.OnValueChange += GameEvent.SkinHax_OnValueChanged;
+            Config.Modes.Misc._SelfW.OnValueChange += GameEvent.SelfW_OnValueChanged;
             if (Config.Modes.Misc.EGapClos)
                 Gapcloser.OnGapcloser += GameEvent.Gapcloser_OnGapCloser;
             Obj_AI_Base.OnBasicAttack += GameEvent.ObjTurret_OnTurretDamage;

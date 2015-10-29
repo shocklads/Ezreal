@@ -31,8 +31,8 @@ namespace AddonTemplate.Modes
                     }
                     if (minions.Any() && !lastQ)
                     {
-                        var test = minions.GetEnumerator();
-                        while (test.MoveNext())
+                        var getHealthyCs = minions.GetEnumerator();
+                        while (getHealthyCs.MoveNext())
                         {
                             Q.Cast(minions.Last());
                         }

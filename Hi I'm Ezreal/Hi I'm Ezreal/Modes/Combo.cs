@@ -19,7 +19,7 @@ namespace AddonTemplate.Modes
         {
             if (Settings.UseQ && Q.IsReady())
             {
-                var target = TargetSelector.GetTarget(Q.Range, DamageType.Physical);
+                var target = TargetSelector.GetTarget(Q.Range - 50, DamageType.Physical);
                 if (target != null && Q.GetPrediction(target).HitChance >= SpellManager.PredQ())
                 {
                     Q.Cast(target);
@@ -27,7 +27,7 @@ namespace AddonTemplate.Modes
             }
             if (Settings.UseW && W.IsReady())
             {
-                var target = TargetSelector.GetTarget(W.Range, DamageType.Physical);
+                var target = TargetSelector.GetTarget(W.Range - 50, DamageType.Physical);
                 if (target != null && W.GetPrediction(target).HitChance >= SpellManager.PredW())
                 {
                     W.Cast(target);

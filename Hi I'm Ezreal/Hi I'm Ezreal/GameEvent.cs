@@ -13,11 +13,11 @@ namespace AddonTemplate
     {
         public static void ObjTurret_OnTurretDamage(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (sender is Obj_AI_Turret && sender.IsAlly)
+            if (sender is Obj_AI_Turret && sender.IsAlly && Player.Instance.ManaPercent > Config.Modes.Clear.ManaQ)
             {
-                Obj_AI_Base lol = (Obj_AI_Base) ObjectManager.GetUnitByNetworkId((uint) args.Target.NetworkId);
-                if (Player.Instance.GetAutoAttackDamage(lol) < lol.Health &&
-                    Player.Instance.GetSpellDamage(lol, SpellSlot.Q) > lol.Health && Player.Instance.CanAttack)
+                Obj_AI_Base cs = (Obj_AI_Base)ObjectManager.GetUnitByNetworkId((uint)args.Target.NetworkId);
+                if (Player.Instance.GetAutoAttackDamage(cs) < cs.Health &&
+                    Player.Instance.GetSpellDamage(cs, SpellSlot.Q) > cs.Health && Player.Instance.CanAttack)
                 {
                     string[] innerTurret = {
                         "TurreT_T2_C_01_A",
@@ -32,9 +32,9 @@ namespace AddonTemplate
                         "TurreT_T1_C_07_A"
                     };
                     if (!innerTurret.Any(sender.Name.Contains) && Config.Modes.Misc.UseQUnderTurret &&
-                        Player.Instance.GetSpellDamage(lol, SpellSlot.Q) >= lol.Health)
+                        Player.Instance.GetSpellDamage(cs, SpellSlot.Q) >= cs.Health)
                     {
-                        SpellManager.Q.Cast(lol);
+                        SpellManager.Q.Cast(cs);
                     }
                 }
             }
@@ -54,9 +54,12 @@ namespace AddonTemplate
 
         public static void SkinHax_OnValueChanged(ValueBase<int> sender, ValueBase<int>.ValueChangeArgs args)
         {
-            Config.Modes.Draw._skinhax.DisplayName = Config.Modes.Draw.skinName[Config.Modes.Draw._skinhax.CurrentValue];
-
-            Player.Instance.SetSkin(Player.Instance.ChampionName, args.NewValue);
+            if (Config.Modes.Draw.UseHax)
+            {
+                Config.Modes.Draw._skinhax.DisplayName =
+                    Config.Modes.Draw.skinName[Config.Modes.Draw._skinhax.CurrentValue];
+                Player.Instance.SetSkin(Player.Instance.ChampionName, args.NewValue);
+            }
         }
 
         public static void Gapcloser_OnGapCloser(AIHeroClient sender, Gapcloser.GapcloserEventArgs gapcloser)
