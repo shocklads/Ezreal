@@ -61,7 +61,11 @@ namespace AddonTemplate
 
         public static void Gapcloser_OnGapCloser(AIHeroClient sender, Gapcloser.GapcloserEventArgs gapcloser)
         {
-            if (sender.GetAutoAttackRange() >= ObjectManager.Player.Distance(gapcloser.End))
+            string[] herogapcloser =
+            {
+                "Braum", "Ekko", "Elise", "Fiora", "Kindred", "Lucian", "Yi", "Nidalee", "Quinn", "Riven", "Shaco", "Sion", "Vayne", "Yasuo", "Graves", "Azir", "Gnar", "Irelia", "Kalista"
+            };
+            if (sender.GetAutoAttackRange() >= ObjectManager.Player.Distance(gapcloser.End) && !herogapcloser.Any(sender.ChampionName.Contains))
             {
                 var diffGapCloser = gapcloser.End - gapcloser.Start;
                 SpellManager.E.Cast(ObjectManager.Player.ServerPosition + diffGapCloser);
