@@ -16,6 +16,10 @@ namespace AddonTemplate.Modes
 
         public override void Execute()
         {
+            if (Game.Time - Config.LastComboPressed > 1 && Player.Instance.HasBuff("Muramana"))
+            {
+                Config.Muramana.Cast();
+            }
             if (!Player.Instance.IsRecalling())
             {
                 KsChamp();

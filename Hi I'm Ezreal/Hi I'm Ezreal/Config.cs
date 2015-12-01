@@ -1,4 +1,5 @@
-﻿using EloBuddy.SDK;
+﻿using EloBuddy;
+using EloBuddy.SDK;
 using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 
@@ -9,7 +10,12 @@ namespace AddonTemplate
 {
     public static class Config
     {
-        public static Item Muramana = new Item(3042);
+        public static Item Muramana = new Item(3042); // Muramana itemId is lacking in the Item DB
+        public static Item Youmuu = new Item(ItemId.Youmuus_Ghostblade);
+        public static Item Botrk = new Item(ItemId.Blade_of_the_Ruined_King);
+        public static Item Cutlass = new Item(ItemId.Bilgewater_Cutlass);
+
+        public static float LastComboPressed = 0;
 
         private const string MenuName = "Hi I'm Ezreal";
 
@@ -57,42 +63,69 @@ namespace AddonTemplate
             public static void Initialize()
             {
             }
-        
 
-        public static class Combo
+
+            public static class Combo
             {
                 private static readonly CheckBox _useQ;
                 private static readonly CheckBox _useW;
                 private static readonly CheckBox _useE;
                 private static readonly CheckBox _useR;
                 private static readonly Slider _numberR;
+                private static readonly Slider _minHPBotrk;
+                private static readonly Slider _enemyMinHPBotrk;
+                private static readonly CheckBox _useMuramana;
+                private static readonly CheckBox _useYoumuu;
+                private static readonly CheckBox _useBotrk;
 
                 public static bool UseQ
                 {
                     get { return _useQ.CurrentValue; }
                 }
 
-            public static bool UseW
-            {
-                get { return _useW.CurrentValue; }
-            }
+                public static bool UseW
+                {
+                    get { return _useW.CurrentValue; }
+                }
 
-            public static bool UseE
-            {
-                get { return _useE.CurrentValue; }
-            }
+                public static bool UseE
+                {
+                    get { return _useE.CurrentValue; }
+                }
 
-            public static bool UseR
-            {
-                get { return _useR.CurrentValue; }
-            }
+                public static bool UseR
+                {
+                    get { return _useR.CurrentValue; }
+                }
 
-            public static int NumberR
-            {
-                get { return _numberR.CurrentValue; }
-            }
+                public static bool UseMuramana
+                {
+                    get { return _useMuramana.CurrentValue; }
+                }
 
-            static Combo()
+                public static bool UseYoumuu
+                {
+                    get { return _useYoumuu.CurrentValue; }
+                }
+                public static bool useBotrk
+                {
+                    get { return _useBotrk.CurrentValue; }
+                }
+
+                public static int NumberR
+                {
+                    get { return _numberR.CurrentValue; }
+                }
+                public static int MinHPBotrk
+                {
+                    get { return _minHPBotrk.CurrentValue; }
+                }
+                public static int EnemyMinHPBotrk
+                {
+                    get { return _enemyMinHPBotrk.CurrentValue; }
+                }
+
+                static Combo()
                 {
                     MenuCombo.AddGroupLabel("Combo");
                     _useQ = MenuCombo.Add("comboUseQ", new CheckBox("Use Q"));
@@ -101,6 +134,12 @@ namespace AddonTemplate
                     _useR = MenuCombo.Add("comboUseR", new CheckBox("Use R"));
                     MenuCombo.AddSeparator();
                     _numberR = MenuCombo.Add("combonumberR", new Slider("Min enemy to use R", 2, 1, 5));
+                    MenuCombo.AddSeparator();
+                    _useMuramana = MenuCombo.Add("useMuramana", new CheckBox("Use Muramana"));
+                    _useYoumuu = MenuCombo.Add("useYoumuu", new CheckBox("Use Youmuu's Ghostblade"));
+                    _useBotrk = MenuCombo.Add("useBotrk", new CheckBox("Use Blade of the ruined king"));
+                    _minHPBotrk = MenuCombo.Add("minHPBotrk", new Slider("Min health to use Botrk ({0}%)", 80));
+                    _enemyMinHPBotrk = MenuCombo.Add("enemyMinHPBotrk", new Slider("Min enemy health to use Botrk ({0}%)", 80));
                 }
 
                 public static void Initialize()
