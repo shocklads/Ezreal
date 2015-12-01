@@ -71,7 +71,6 @@ namespace AddonTemplate.Modes
             }
         }
 
-        // private static AIHeroClient MyHero => ObjectManager.Player;
 
         public static void KsChamp()
         {

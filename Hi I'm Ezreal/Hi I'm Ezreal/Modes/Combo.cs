@@ -77,7 +77,7 @@ namespace AddonTemplate.Modes
                 var heroes = EntityManager.Heroes.Enemies;
                 foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible && hero.IsInRange(Player.Instance, 3000)))
                 {
-                    if (hero.IsKsable(SpellSlot.R) && (!Q.IsReady() || !hero.IsKsable(SpellSlot.Q)) && (!W.IsReady() || !hero.IsKsable(SpellSlot.W)))
+                    if (hero.IsKillable(SpellSlot.R) && (!Q.IsReady() || !hero.IsKillable(SpellSlot.Q)) && (!W.IsReady() || !hero.IsKillable(SpellSlot.W)))
                     {
                         R.Cast(hero);
                     }
