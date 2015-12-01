@@ -9,8 +9,7 @@ namespace AddonTemplate.Modes
     {
         public override bool ShouldBeExecuted()
         {
-            return (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear)
-                || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear));
+            return (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear));
         }
 
         public override void Execute()

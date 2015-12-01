@@ -1,4 +1,5 @@
-﻿using EloBuddy.SDK;
+﻿using EloBuddy;
+using EloBuddy.SDK;
 
 namespace AddonTemplate.Modes
 {
@@ -11,6 +12,13 @@ namespace AddonTemplate.Modes
 
         public override void Execute()
         {
+            foreach (var minion in EntityManager.MinionsAndMonsters.GetJungleMonsters(Player.Instance.Position, Q.Range))
+            {
+                if (minion.IsValidTarget() && Player.Instance.ManaPercent > Config.Modes.Clear.ManaQ)
+                {
+                    Q.Cast(minion);
+                }
+            }
         }
     }
 }
