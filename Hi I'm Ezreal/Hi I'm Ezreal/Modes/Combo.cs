@@ -77,7 +77,11 @@ namespace AddonTemplate.Modes
                 var heroes = EntityManager.Heroes.Enemies;
                 foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible && hero.IsInRange(Player.Instance, 10000)))
                 {
-                    var collision = new List<AIHeroClient>();
+                    if (hero.IsKsable(SpellSlot.R) && (!Q.IsReady() || !hero.IsKsable(SpellSlot.Q)) && (!W.IsReady() || !hero.IsKsable(SpellSlot.W)))
+                    {
+                        R.Cast(hero);
+                    }
+                 /*   var collision = new List<AIHeroClient>();
                     var startPos = Player.Instance.Position.To2D();
                     var endPos = startPos.Extend(hero.Position.To2D(), 1500);
                     collision.Clear();
@@ -93,7 +97,7 @@ namespace AddonTemplate.Modes
                             R.Cast(hero);
                         }
                     }
-                }
+                */}
             }
         }
     }
