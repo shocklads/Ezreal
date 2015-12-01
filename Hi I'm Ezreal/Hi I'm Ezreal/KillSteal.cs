@@ -11,7 +11,7 @@ namespace AddonTemplate
             get { return ObjectManager.Player; }
         }
 
-        public static bool IsKsable(this AIHeroClient target, SpellSlot spell)
+        public static bool IsKillable(this AIHeroClient target, SpellSlot spell)
         {
             var totalHealth = target.TotalShieldHealth();
             if (target.HasUndyingBuff() || target.HasSpellShield() || target.IsInvulnerable)

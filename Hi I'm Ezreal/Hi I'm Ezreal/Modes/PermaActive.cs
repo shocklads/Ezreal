@@ -78,14 +78,14 @@ namespace AddonTemplate.Modes
 
             foreach (var enemy in EntityManager.Heroes.Enemies.Where(enemy => enemy.IsValidTarget(Q.Range)))
             {
-                if (Settings.KsQ && Q.IsReady() && enemy.IsKsable(SpellSlot.Q))
+                if (Settings.KsQ && Q.IsReady() && enemy.IsKillable(SpellSlot.Q))
                 {
                     Q.Cast(enemy);
                 }
             }
             foreach (var enemy in EntityManager.Heroes.Enemies.Where(enemy => enemy.IsValidTarget(W.Range)))
             {
-                if (Settings.KsW && W.IsReady() && enemy.IsKsable(SpellSlot.W))
+                if (Settings.KsW && W.IsReady() && enemy.IsKillable(SpellSlot.W))
                 {
                     W.Cast(enemy);
                 }

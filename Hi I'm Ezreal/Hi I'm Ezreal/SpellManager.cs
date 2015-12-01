@@ -1,4 +1,5 @@
-﻿using EloBuddy;
+﻿using System;
+using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Enumerations;
 
@@ -17,6 +18,8 @@ namespace AddonTemplate
             W = new Spell.Skillshot(SpellSlot.W, 1050, SkillShotType.Linear, 250, 1600, 80);
             E = new Spell.Skillshot(SpellSlot.E, 475, SkillShotType.Linear, 250, 2000, 80);
             R = new Spell.Skillshot(SpellSlot.R, 2000000, SkillShotType.Linear, 250, 2000, 160);
+            W.AllowedCollisionCount = Int32.MaxValue;
+            R.AllowedCollisionCount = Int32.MaxValue;
         }
 
         public static void Initialize()

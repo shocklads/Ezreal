@@ -71,7 +71,7 @@ namespace AddonTemplate
                 private static readonly CheckBox _useW;
                 private static readonly CheckBox _useE;
                 private static readonly CheckBox _useR;
-                private static readonly Slider _numberR;
+               // private static readonly Slider _numberR;
                 private static readonly Slider _minHPBotrk;
                 private static readonly Slider _enemyMinHPBotrk;
                 private static readonly CheckBox _useMuramana;
@@ -112,10 +112,11 @@ namespace AddonTemplate
                     get { return _useBotrk.CurrentValue; }
                 }
 
-                public static int NumberR
+             /*   public static int NumberR
                 {
                     get { return _numberR.CurrentValue; }
                 }
+                */
                 public static int MinHPBotrk
                 {
                     get { return _minHPBotrk.CurrentValue; }
@@ -132,8 +133,8 @@ namespace AddonTemplate
                     _useW = MenuCombo.Add("comboUseW", new CheckBox("Use W"));
                     _useE = MenuCombo.Add("comboUseE", new CheckBox("Use E", false));
                     _useR = MenuCombo.Add("comboUseR", new CheckBox("Use R"));
-                    MenuCombo.AddSeparator();
-                    _numberR = MenuCombo.Add("combonumberR", new Slider("Min enemy to use R", 2, 1, 5));
+                   // MenuCombo.AddSeparator();
+                   // _numberR = MenuCombo.Add("combonumberR", new Slider("Min enemy to use R", 2, 1, 5));
                     MenuCombo.AddSeparator();
                     _useMuramana = MenuCombo.Add("useMuramana", new CheckBox("Use Muramana"));
                     _useYoumuu = MenuCombo.Add("useYoumuu", new CheckBox("Use Youmuu's Ghostblade"));

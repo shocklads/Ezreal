@@ -75,7 +75,7 @@ namespace AddonTemplate.Modes
             if (Settings.UseR && R.IsReady())
             {
                 var heroes = EntityManager.Heroes.Enemies;
-                foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible && hero.IsInRange(Player.Instance, 10000)))
+                foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible && hero.IsInRange(Player.Instance, 3000)))
                 {
                     if (hero.IsKsable(SpellSlot.R) && (!Q.IsReady() || !hero.IsKsable(SpellSlot.Q)) && (!W.IsReady() || !hero.IsKsable(SpellSlot.W)))
                     {
