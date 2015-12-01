@@ -1,4 +1,5 @@
-﻿using EloBuddy.SDK.Menu;
+﻿using EloBuddy.SDK;
+using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 
 // ReSharper disable InconsistentNaming
@@ -8,6 +9,8 @@ namespace AddonTemplate
 {
     public static class Config
     {
+        public static Item Muramana = new Item(3042);
+
         private const string MenuName = "Hi I'm Ezreal";
 
         private static readonly Menu Menu;
@@ -109,6 +112,8 @@ namespace AddonTemplate
             {
                 private static readonly CheckBox _useQ;
                 private static readonly CheckBox _useW;
+                private static readonly CheckBox _toggleQ;
+                private static readonly CheckBox _toggleW;
                 private static readonly Slider _manaQ;
                 private static readonly Slider _manaW;
 
@@ -120,6 +125,14 @@ namespace AddonTemplate
                 public static bool UseW
                 {
                     get { return _useW.CurrentValue; }
+                }
+                public static bool ToggleQ
+                {
+                    get { return _toggleQ.CurrentValue; }
+                }
+                public static bool ToggleW
+                {
+                    get { return _toggleW.CurrentValue; }
                 }
 
                 public static int ManaQ
@@ -137,6 +150,10 @@ namespace AddonTemplate
                     MenuHarass.AddGroupLabel("Harass");
                     _useQ = MenuHarass.Add("harassUseQ", new CheckBox("Use Q"));
                     _useW = MenuHarass.Add("harassUseW", new CheckBox("Use W"));
+                    MenuHarass.AddSeparator();
+                    MenuHarass.AddGroupLabel("Auto Harass");
+                    _toggleQ = MenuHarass.Add("toggleQ", new CheckBox("Auto Harass Q"));
+                    _toggleW = MenuHarass.Add("toggleW", new CheckBox("Auto Harass W"));
                     MenuHarass.AddSeparator();
                     MenuHarass.AddGroupLabel("Mana Management");
                     _manaQ = MenuHarass.Add("harassManaQ", new Slider("Minimum mana to use Q ({0}%)", 40));

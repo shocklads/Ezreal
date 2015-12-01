@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using EloBuddy;
 using EloBuddy.SDK;
@@ -21,6 +22,27 @@ namespace AddonTemplate.Modes
                 AutoCCed();
                 //  KsBuff();
                 QIfUnkillable();
+                AutoHarass();
+            }
+        }
+
+        private static void AutoHarass()
+        {
+            if (Config.Modes.Harass.ToggleQ && Player.Instance.ManaPercent > Config.Modes.Harass.ManaQ && Q.IsReady())
+            {
+                var target = TargetSelector.GetTarget(Q.Range - 50, DamageType.Physical);
+                if (target != null && Q.GetPrediction(target).HitChance >= SpellManager.PredQ())
+                {
+                    Q.Cast(target);
+                }
+            }
+            if (Config.Modes.Harass.ToggleW && Player.Instance.ManaPercent > Config.Modes.Harass.ManaW && W.IsReady())
+            {
+                var target = TargetSelector.GetTarget(W.Range - 50, DamageType.Physical);
+                if (target != null && W.GetPrediction(target).HitChance >= SpellManager.PredW())
+                {
+                    W.Cast(target);
+                }
             }
         }
 
