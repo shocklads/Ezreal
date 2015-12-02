@@ -59,9 +59,9 @@ namespace AddonTemplate.Modes
         {
             if (!PermaActive.ShouldQMinion())
             {
-                Console.WriteLine(" Cant Q cuz flags " + DateTime.Now.ToLongTimeString());
                 return;
             }
+
             if (Player.Instance.ManaPercent > Config.Modes.Clear.ManaQ)
             {
                 foreach (
