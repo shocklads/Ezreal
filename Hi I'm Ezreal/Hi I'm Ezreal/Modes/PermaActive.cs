@@ -32,6 +32,13 @@ namespace AddonTemplate.Modes
 
         private static void AutoHarass()
         {
+            // You don't want to cancel an auto attack for a Q
+            // reasons: can lose a minion, can cancel the last hit on a champion and miss sure kills
+            if (!Player.Instance.CanAttack)
+            {
+                return;
+            }
+
             if (Config.Modes.Harass.ToggleQ && Player.Instance.ManaPercent > Config.Modes.Harass.ManaQ && Q.IsReady())
             {
                 var target = TargetSelector.GetTarget(Q.Range - 50, DamageType.Physical);
@@ -52,6 +59,13 @@ namespace AddonTemplate.Modes
 
         private static void QIfUnkillable()
         {
+            // You don't want to cancel always Q random dying minions,
+            // only when you are farming (LastHit or LaneClear)
+            if (!PermaActive.ShouldQMinion())
+            {
+                Console.WriteLine(" Cant Q cuz flags " + DateTime.Now.ToLongTimeString());
+                return;
+            }
             if (Player.Instance.ManaPercent > Config.Modes.Clear.ManaQ)
             {
                 foreach (
@@ -71,6 +85,10 @@ namespace AddonTemplate.Modes
             }
         }
 
+        private static bool ShouldQMinion()
+        {
+            return Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LastHit);
+        }
 
         public static void KsChamp()
         {
