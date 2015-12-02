@@ -32,8 +32,6 @@ namespace AddonTemplate.Modes
 
         private static void AutoHarass()
         {
-            // You don't want to cancel an auto attack for a Q
-            // reasons: can lose a minion, can cancel the last hit on a champion and miss sure kills
             if (!Player.Instance.CanAttack)
             {
                 return;
@@ -59,8 +57,6 @@ namespace AddonTemplate.Modes
 
         private static void QIfUnkillable()
         {
-            // You don't want to cancel always Q random dying minions,
-            // only when you are farming (LastHit or LaneClear)
             if (!PermaActive.ShouldQMinion())
             {
                 Console.WriteLine(" Cant Q cuz flags " + DateTime.Now.ToLongTimeString());
