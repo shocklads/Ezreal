@@ -20,20 +20,12 @@ namespace AddonTemplate.Modes
                 var minions = EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy,
                     Player.Instance.ServerPosition, SpellManager.Q.Range).OrderBy(h => h.Health);
                 {
-                    foreach (var minion in minions)
-                    {
-                        if (Player.Instance.GetSpellDamage(minion, SpellSlot.Q) >= minion.Health && Player.Instance.GetAutoAttackDamage(minion, true) < minion.Health)
-                        {
-                            Q.Cast(minion);
-                            lastQ = true;
-                        }
-                    }
                     if (minions.Any() && !lastQ)
                     {
                         var getHealthyCs = minions.GetEnumerator();
                         while (getHealthyCs.MoveNext())
                         {
-                            Q.Cast(minions.Last());
+                            Q.Cast(Q.GetPrediction(minions.Last()).CastPosition);
                         }
                     }
                 }
@@ -57,8 +49,8 @@ namespace AddonTemplate.Modes
                         {
                             collision.Add(hero);
                         }
-                        if (collision.Count >= Config.Modes.Clear.NumberW)
-                            W.Cast(hero);
+                        if (collision.Count - 1 >= Config.Modes.Clear.NumberW)
+                            W.Cast(W.GetPrediction(hero).CastPosition);
                     }
                 }
             }

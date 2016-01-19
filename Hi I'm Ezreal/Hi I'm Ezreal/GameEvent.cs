@@ -84,5 +84,17 @@ namespace AddonTemplate
             if ((Config.Modes.Draw.DrawE && !Config.Modes.Draw.OnlyRdy) || (Config.Modes.Draw.OnlyRdy && !SpellManager.E.IsOnCooldown && Config.Modes.Draw.DrawE && SpellManager.E.IsLearned))
                 Circle.Draw(Color.Yellow, SpellManager.E.Range, Player.Instance.Position);
         }
+
+        public static void UseHax_OnValueChanged(ValueBase<bool> sender, ValueBase<bool>.ValueChangeArgs args)
+        {
+            if (!sender.CurrentValue)
+            {
+                Player.Instance.SetSkin(Player.Instance.ChampionName, Program.SkinBase);
+            }
+            else
+            {
+                Player.Instance.SetSkin(Player.Instance.ChampionName, Config.Modes.Draw._skinhax.CurrentValue);
+            }
+        }
     }
 }

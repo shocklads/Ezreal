@@ -40,17 +40,19 @@ namespace AddonTemplate.Modes
             if (Config.Modes.Harass.ToggleQ && Player.Instance.ManaPercent > Config.Modes.Harass.ManaQ && Q.IsReady())
             {
                 var target = TargetSelector.GetTarget(Q.Range - 50, DamageType.Physical);
-                if (target != null && Q.GetPrediction(target).HitChance >= SpellManager.PredQ())
+                var predQ = Q.GetPrediction(target);
+                if (target != null && predQ.HitChance >= SpellManager.PredQ())
                 {
-                    Q.Cast(target);
+                    Q.Cast(predQ.CastPosition);
                 }
             }
             if (Config.Modes.Harass.ToggleW && Player.Instance.ManaPercent > Config.Modes.Harass.ManaW && W.IsReady())
             {
                 var target = TargetSelector.GetTarget(W.Range - 50, DamageType.Physical);
-                if (target != null && W.GetPrediction(target).HitChance >= SpellManager.PredW())
+                var predW = W.GetPrediction(target);
+                if (target != null && predW.HitChance >= SpellManager.PredW())
                 {
-                    W.Cast(target);
+                    W.Cast(predW.CastPosition);
                 }
             }
         }
@@ -75,7 +77,7 @@ namespace AddonTemplate.Modes
                         if (Config.Modes.Misc.UseQOnUnkillable &&
                             Player.Instance.GetSpellDamage(minions, SpellSlot.Q) >= minions.Health &&
                             (Orbwalker.LastTarget == null || Orbwalker.LastTarget.NetworkId != minions.NetworkId))
-                            Q.Cast(minions);
+                            Q.Cast(Q.GetPrediction(minions).CastPosition);
                     }
                 }
             }
@@ -93,14 +95,14 @@ namespace AddonTemplate.Modes
             {
                 if (Settings.KsQ && Q.IsReady() && enemy.IsKillable(SpellSlot.Q))
                 {
-                    Q.Cast(enemy);
+                    Q.Cast(Q.GetPrediction(enemy).CastPosition);
                 }
             }
             foreach (var enemy in EntityManager.Heroes.Enemies.Where(enemy => enemy.IsValidTarget(W.Range)))
             {
                 if (Settings.KsW && W.IsReady() && enemy.IsKillable(SpellSlot.W))
                 {
-                    W.Cast(enemy);
+                    W.Cast(W.GetPrediction(enemy).CastPosition);
                 }
             }
         }

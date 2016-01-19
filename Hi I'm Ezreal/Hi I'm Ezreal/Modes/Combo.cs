@@ -6,6 +6,7 @@ using AddonTemplate.Modes;
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Constants;
+using EloBuddy.SDK.Enumerations;
 using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 
@@ -50,26 +51,27 @@ namespace AddonTemplate.Modes
             if (Settings.UseQ && Q.IsReady())
             {
                 var target = TargetSelector.GetTarget(Q.Range - 50, DamageType.Physical);
-                if (target != null && Q.GetPrediction(target).HitChance >= SpellManager.PredQ())
+                var predQ = Q.GetPrediction(target);
+                if (target != null && predQ.HitChance >= SpellManager.PredQ())
                 {
-                    Q.Cast(target);
+                    Q.Cast(predQ.CastPosition);
                 }
             }
             if (Settings.UseW && W.IsReady())
             {
                 var target = TargetSelector.GetTarget(W.Range - 50, DamageType.Physical);
-                if (target != null && W.GetPrediction(target).HitChance >= SpellManager.PredW())
+                var predW = W.GetPrediction(target);
+                if (target != null && predW.HitChance >= SpellManager.PredW())
                 {
-                    W.Cast(target);
+                    W.Cast(predW.CastPosition);
                 }
             }
             if (Settings.UseE && E.IsReady())
             {
                 var target = TargetSelector.GetTarget(E.Range, DamageType.Physical);
-                var test = Game.CursorPos;
                 if (target != null)
                 {
-                    E.Cast(test);
+                    E.Cast(Game.CursorPos);
                 }
             }
             if (Settings.UseR && R.IsReady())
@@ -77,27 +79,35 @@ namespace AddonTemplate.Modes
                 var heroes = EntityManager.Heroes.Enemies;
                 foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible && hero.IsInRange(Player.Instance, 3000)))
                 {
-                    if (hero.IsKillable(SpellSlot.R) && (!Q.IsReady() || !hero.IsKillable(SpellSlot.Q)) && (!W.IsReady() || !hero.IsKillable(SpellSlot.W)))
+                    var predR = R.GetPrediction(hero);
+                    if (Settings.UseR && hero.IsKillable(SpellSlot.R) && predR.HitChance >= SpellManager.PredR() && (!Q.IsReady() || !hero.IsKillable(SpellSlot.Q)) && (!W.IsReady() || !hero.IsKillable(SpellSlot.W)))
                     {
-                        R.Cast(hero);
+                         R.Cast(predR.CastPosition);
                     }
-                 /*   var collision = new List<AIHeroClient>();
-                    var startPos = Player.Instance.Position.To2D();
-                    var endPos = startPos.Extend(hero.Position.To2D(), 1500);
-                    collision.Clear();
-                    foreach (var colliHero in heroes.Where(colliHero => !colliHero.IsDead && colliHero.IsVisible && colliHero.IsInRange(hero, 3000)))
+                    if (Settings.UseRSeveral)
                     {
-                        if (Prediction.Position.Collision.LinearMissileCollision(colliHero, startPos, endPos,
-                            SpellManager.R.Speed, SpellManager.R.Width, SpellManager.R.CastDelay))
+                        var collision = new List<AIHeroClient>();
+                        var startPos = Player.Instance.Position.To2D();
+                        var endPos = hero.Position.To2D();
+                        collision.Clear();
+                        foreach (
+                            var colliHero in
+                                heroes.Where(
+                                    colliHero =>
+                                        !colliHero.IsDead && colliHero.IsVisible && colliHero.IsInRange(hero, 3000)))
                         {
-                            collision.Add(colliHero);
-                        }
-                        if (collision.Count >= Settings.NumberR)
-                        {
-                            R.Cast(hero);
+                            if (Prediction.Position.Collision.LinearMissileCollision(colliHero, startPos, endPos,
+                                SpellManager.R.Speed, SpellManager.R.Width, SpellManager.R.CastDelay))
+                            {
+                                collision.Add(colliHero);
+                            }
+                            if (collision.Count >= Settings.NumberR)
+                            {
+                                R.Cast(hero);
+                            }
                         }
                     }
-                */}
+                }
             }
         }
     }

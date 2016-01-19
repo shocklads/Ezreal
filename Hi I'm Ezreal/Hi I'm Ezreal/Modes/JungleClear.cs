@@ -16,7 +16,7 @@ namespace AddonTemplate.Modes
             {
                 if (minion.IsValidTarget() && Player.Instance.ManaPercent > Config.Modes.Clear.ManaQ)
                 {
-                    Q.Cast(minion);
+                    Q.Cast(Q.GetPrediction(minion).CastPosition);
                 }
             }
         }
