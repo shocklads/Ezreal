@@ -139,7 +139,7 @@ namespace AddonTemplate
                     _useE = MenuCombo.Add("comboUseE", new CheckBox("Use E", false));
                     _useR = MenuCombo.Add("comboUseR", new CheckBox("Use R"));
                     MenuCombo.AddSeparator();
-                    _useR = MenuCombo.Add("comboUseRSeveral", new CheckBox("Use R to damage several enemies"));
+                    _useRSeveral = MenuCombo.Add("comboUseRSeveral", new CheckBox("Use R to damage several enemies"));
                     _numberR = MenuCombo.Add("combonumberR", new Slider("Min enemy to use R", 2, 1, 5));
                     MenuCombo.AddSeparator();
                     _useMuramana = MenuCombo.Add("useMuramana", new CheckBox("Use Muramana"));
