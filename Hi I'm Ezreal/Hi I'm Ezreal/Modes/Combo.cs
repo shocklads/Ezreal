@@ -74,7 +74,7 @@ namespace AddonTemplate.Modes
                     E.Cast(Game.CursorPos);
                 }
             }
-            if (Settings.UseR && R.IsReady())
+            if (R.IsReady())
             {
                 var heroes = EntityManager.Heroes.Enemies;
                 foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible && hero.IsInRange(Player.Instance, 3000)))
