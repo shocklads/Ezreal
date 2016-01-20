@@ -16,6 +16,8 @@ namespace AddonTemplate.Modes
 
         public override void Execute()
         {
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Flee))
+                return;
             if (Game.Time - Config.LastComboPressed > 1 && Player.Instance.HasBuff("Muramana"))
             {
                 Config.Muramana.Cast();
