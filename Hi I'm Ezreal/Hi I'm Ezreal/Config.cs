@@ -14,6 +14,8 @@ namespace AddonTemplate
         public static Item Youmuu = new Item(ItemId.Youmuus_Ghostblade);
         public static Item Botrk = new Item(ItemId.Blade_of_the_Ruined_King);
         public static Item Cutlass = new Item(ItemId.Bilgewater_Cutlass);
+        public static Item Tear = new Item(ItemId.Tear_of_the_Goddess);
+        public static Item Manamume = new Item(ItemId.Manamune);
 
         public static float LastComboPressed = 0;
 

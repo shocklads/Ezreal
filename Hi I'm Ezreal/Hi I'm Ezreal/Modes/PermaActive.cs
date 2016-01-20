@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Linq;
+using System.Threading;
 using EloBuddy;
 using EloBuddy.SDK;
 using Settings = AddonTemplate.Config.Modes.KillSteal;
@@ -29,8 +30,22 @@ namespace AddonTemplate.Modes
                 //  KsBuff();
                 QIfUnkillable();
                 AutoHarass();
+                StackTear();
             }
         }
+
+        public static void StackTear()
+        {
+            if (Player.Instance.IsInShopRange())
+            {
+                if (Config.Tear.IsOwned() || Config.Manamume.IsOwned())
+                {
+                    Q.Cast(Game.CursorPos);
+                    W.Cast(Game.CursorPos);
+                }
+            }
+        }
+
         public static Obj_AI_Turret IsUnderTurret()
         {
             return (EntityManager.Turrets.Enemies.OrderBy(x => x.Distance(Player.Instance.Position) <= 750 && !x.IsAlly && !x.IsDead).FirstOrDefault());
