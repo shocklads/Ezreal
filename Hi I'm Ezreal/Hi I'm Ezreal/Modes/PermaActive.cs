@@ -29,10 +29,14 @@ namespace AddonTemplate.Modes
                 AutoHarass();
             }
         }
+        public static Obj_AI_Turret IsUnderTurret()
+        {
+            return (EntityManager.Turrets.Enemies.OrderBy(x => x.Distance(Player.Instance.Position) <= 750 && !x.IsAlly && !x.IsDead).FirstOrDefault());
+        }
 
         private static void AutoHarass()
         {
-            if (!Player.Instance.CanAttack)
+            if (!Player.Instance.CanAttack || EntityManager.Turrets.Enemies.Any(turret => turret.IsInRange(Player.Instance.Position, 775)))
             {
                 return;
             }

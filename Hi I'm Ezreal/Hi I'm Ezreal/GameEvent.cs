@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Events;
@@ -45,9 +46,17 @@ namespace AddonTemplate
             if (args.NewValue && SpellManager.W.IsReady() && SpellManager.E.IsReady())
             {
                 var tempPos = Game.CursorPos;
-
-                ObjectManager.Player.Spellbook.CastSpell(SpellSlot.W, tempPos);
-                ObjectManager.Player.Spellbook.CastSpell(SpellSlot.E, tempPos);
+                
+                SpellManager.W.Cast(tempPos);
+                Thread.Sleep(120);
+                if (tempPos.IsInRange(Player.Instance.Position, SpellManager.E.Range))
+                {
+                    SpellManager.E.Cast(tempPos);
+                }
+                else
+                {
+                    SpellManager.E.Cast(Player.Instance.Position.Extend(tempPos, 450).To3DWorld());
+                }
                 Config.Modes.Misc._SelfW.CurrentValue = false;
             }
         }
