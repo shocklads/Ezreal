@@ -316,7 +316,7 @@ namespace AddonTemplate
                     _KsW = MenuKillsteal.Add("KsW", new CheckBox("Use W", false));
                     MenuKillsteal.AddSeparator();
                     MenuKillsteal.AddGroupLabel("Jungle steal");
-                    MenuKillsteal.AddLabel("Disable for now !");
+                    MenuKillsteal.AddLabel("Disabled for now !");
                     _RedSteal = MenuKillsteal.Add("RedS", new CheckBox("Use ult to KS enemy Red Buff", false));
                     _BlueSteal = MenuKillsteal.Add("BlueS", new CheckBox("Use ult to KS enemy Blue Buff", false));
                     _DragonSteal = MenuKillsteal.Add("DragonS", new CheckBox("Use ult to KS Dragon", false));

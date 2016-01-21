@@ -19,7 +19,7 @@ namespace AddonTemplate.Modes
         {
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Flee))
                 return;
-            if (Game.Time - Config.LastComboPressed > 1 && Player.Instance.HasBuff("Muramana"))
+            if (Game.Time - Config.LastComboPressed > 1 && Game.Time - Config.LastComboPressed < 3 && Player.Instance.HasBuff("Muramana"))
             {
                 Config.Muramana.Cast();
             }
