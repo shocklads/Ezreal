@@ -1,4 +1,5 @@
-﻿using EloBuddy;
+﻿using System.Linq;
+using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
@@ -39,7 +40,7 @@ namespace AddonTemplate
         public static class Modes
         {
             private static readonly Menu MenuCombo;
-            private static readonly Menu MenuHarass;
+            public static readonly Menu MenuHarass;
             private static readonly Menu MenuKillsteal;
             private static readonly Menu MenuMisc;
             private static readonly Menu MenuDraw;
@@ -202,6 +203,11 @@ namespace AddonTemplate
                     MenuHarass.AddGroupLabel("Auto Harass");
                     _toggleQ = MenuHarass.Add("toggleQ", new CheckBox("Auto Harass Q"));
                     _toggleW = MenuHarass.Add("toggleW", new CheckBox("Auto Harass W"));
+                    MenuHarass.AddSeparator();
+                    foreach (var source in ObjectManager.Get<AIHeroClient>().Where(a => a.IsEnemy))
+                    {
+                        MenuHarass.Add(source.ChampionName + "harass", new CheckBox("Auto harass " + source.ChampionName, true));
+                    }
                     MenuHarass.AddSeparator();
                     MenuHarass.AddGroupLabel("Mana Management");
                     _manaQ = MenuHarass.Add("harassManaQ", new Slider("Minimum mana to use Q ({0}%)", 40));

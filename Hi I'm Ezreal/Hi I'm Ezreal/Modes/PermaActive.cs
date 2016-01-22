@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using EloBuddy;
 using EloBuddy.SDK;
+using EloBuddy.SDK.Menu.Values;
 using Settings = AddonTemplate.Config.Modes.KillSteal;
 
 namespace AddonTemplate.Modes
@@ -62,7 +63,7 @@ namespace AddonTemplate.Modes
             {
                 var target = TargetSelector.GetTarget(Q.Range - 50, DamageType.Physical);
                 var predQ = Q.GetPrediction(target);
-                if (target != null && predQ.HitChance >= SpellManager.PredQ())
+                if (target != null && Config.Modes.MenuHarass[target.ChampionName + "harass"].Cast<CheckBox>().CurrentValue && predQ.HitChance >= SpellManager.PredQ())
                 {
                     Q.Cast(predQ.CastPosition);
                 }
@@ -71,7 +72,7 @@ namespace AddonTemplate.Modes
             {
                 var target = TargetSelector.GetTarget(W.Range - 50, DamageType.Physical);
                 var predW = W.GetPrediction(target);
-                if (target != null && predW.HitChance >= SpellManager.PredW())
+                if (target != null && Config.Modes.MenuHarass[target.ChampionName + "harass"].Cast<CheckBox>().CurrentValue && predW.HitChance >= SpellManager.PredW())
                 {
                     W.Cast(predW.CastPosition);
                 }
