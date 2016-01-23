@@ -137,8 +137,7 @@ namespace AddonTemplate.Modes
             {
                 string[] hardCc =
                 {
-                    "Charm", "Fear", "Flee", "Knockup", "Polymorph", "Sleep", "Slow", "Snare", "Stun", "Suppression",
-                    "Taunt"
+                    "Charm", "Fear", "Flee", "Knockup", "Polymorph", "Sleep", "Slow", "Snare", "Stun", "Suppression", "Taunt"
                 };
                 foreach (var enemy in EntityManager.Heroes.Enemies)
                 {
