@@ -37,12 +37,15 @@ namespace AddonTemplate.Modes
 
         public static void StackTear()
         {
-            if (Player.Instance.IsInShopRange())
+            if (Config.Modes.Misc.AutoTear)
             {
-                if (Config.Tear.IsOwned() || Config.Manamume.IsOwned())
+                if (Player.Instance.IsInShopRange())
                 {
-                    Q.Cast(Game.CursorPos);
-                    W.Cast(Game.CursorPos);
+                    if (Config.Tear.IsOwned() || Config.Manamume.IsOwned())
+                    {
+                        Q.Cast(Game.CursorPos);
+                        W.Cast(Game.CursorPos);
+                    }
                 }
             }
         }
@@ -51,7 +54,7 @@ namespace AddonTemplate.Modes
         {
             return (EntityManager.Turrets.Enemies.OrderBy(x => x.Distance(Player.Instance.Position) <= 750 && !x.IsAlly && !x.IsDead).FirstOrDefault());
         }
-
+        
         private static void AutoHarass()
         {
             if (!Player.Instance.CanAttack || EntityManager.Turrets.Enemies.Any(turret => turret.IsInRange(Player.Instance.Position, 775)))
@@ -65,7 +68,10 @@ namespace AddonTemplate.Modes
                 var predQ = Q.GetPrediction(target);
                 if (target != null && Config.Modes.MenuHarass[target.ChampionName + "harass"].Cast<CheckBox>().CurrentValue && predQ.HitChance >= SpellManager.PredQ())
                 {
-                    Q.Cast(predQ.CastPosition);
+                    if (Config.Modes.Harass.DelayAutoHarass)
+                        Core.DelayAction(() => Q.Cast(predQ.CastPosition), 500);
+                    else
+                        Q.Cast(predQ.CastPosition);
                 }
             }
             if (Config.Modes.Harass.ToggleW && Player.Instance.ManaPercent > Config.Modes.Harass.ManaW && W.IsReady())
@@ -74,7 +80,10 @@ namespace AddonTemplate.Modes
                 var predW = W.GetPrediction(target);
                 if (target != null && Config.Modes.MenuHarass[target.ChampionName + "harass"].Cast<CheckBox>().CurrentValue && predW.HitChance >= SpellManager.PredW())
                 {
-                    W.Cast(predW.CastPosition);
+                    if (Config.Modes.Harass.DelayAutoHarass)
+                        Core.DelayAction(() => W.Cast(predW.CastPosition), 500);
+                    else
+                        W.Cast(predW.CastPosition);
                 }
             }
         }

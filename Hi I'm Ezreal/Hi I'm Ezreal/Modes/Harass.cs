@@ -1,6 +1,7 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Enumerations;
+using EloBuddy.SDK.Menu.Values;
 using Settings = AddonTemplate.Config.Modes.Harass;
 
 namespace AddonTemplate.Modes
@@ -18,7 +19,7 @@ namespace AddonTemplate.Modes
             {
                 var target = TargetSelector.GetTarget(Q.Range - 50, DamageType.Physical);
                 var predQ = Q.GetPrediction(target);
-                if (target != null && predQ.HitChance >= SpellManager.PredQ())
+                if (target != null && predQ.HitChance >= SpellManager.PredQ() && Config.Modes.MenuHarass[target.ChampionName + "harass"].Cast<CheckBox>().CurrentValue)
                 {
                     Q.Cast(predQ.CastPosition);
                 }
@@ -27,7 +28,7 @@ namespace AddonTemplate.Modes
             {
                 var target = TargetSelector.GetTarget(W.Range - 50, DamageType.Physical);
                 var predW = W.GetPrediction(target);
-                if (target != null && predW.HitChance >= SpellManager.PredW())
+                if (target != null && predW.HitChance >= SpellManager.PredW() && Config.Modes.MenuHarass[target.ChampionName + "harass"].Cast<CheckBox>().CurrentValue)
                 {
                     W.Cast(predW.CastPosition);
                 }

@@ -48,14 +48,13 @@ namespace AddonTemplate
                 var tempPos = Game.CursorPos;
                 
                 SpellManager.W.Cast(tempPos);
-                Thread.Sleep(120);
                 if (tempPos.IsInRange(Player.Instance.Position, SpellManager.E.Range))
                 {
-                    SpellManager.E.Cast(tempPos);
+                    Core.DelayAction(() => SpellManager.E.Cast(tempPos), 120); 
                 }
                 else
                 {
-                    SpellManager.E.Cast(Player.Instance.Position.Extend(tempPos, 450).To3DWorld());
+                    Core.DelayAction(() => SpellManager.E.Cast(Player.Instance.Position.Extend(tempPos, 450).To3DWorld()), 500);
                 }
                 Config.Modes.Misc._SelfW.CurrentValue = false;
             }

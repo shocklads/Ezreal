@@ -76,6 +76,7 @@ namespace AddonTemplate
                 private static readonly CheckBox _useR;
                 private static readonly CheckBox _useRSeveral;
                 private static readonly Slider _numberR;
+                private static readonly Slider _RRange;
                 private static readonly Slider _minHPBotrk;
                 private static readonly Slider _enemyMinHPBotrk;
                 private static readonly CheckBox _useMuramana;
@@ -104,6 +105,10 @@ namespace AddonTemplate
                 public static bool UseRSeveral
                 {
                     get { return _useRSeveral.CurrentValue; }
+                }
+                public static int RRange
+                {
+                    get { return _RRange.CurrentValue; }
                 }
 
                 public static bool UseMuramana
@@ -144,6 +149,7 @@ namespace AddonTemplate
                     MenuCombo.AddSeparator();
                     _useRSeveral = MenuCombo.Add("comboUseRSeveral", new CheckBox("Use R to damage several enemies"));
                     _numberR = MenuCombo.Add("combonumberR", new Slider("Min enemy to use R", 2, 1, 5));
+                    _RRange = MenuCombo.Add("RRange", new Slider("R Range", 3000, 1, 15000));
                     MenuCombo.AddSeparator();
                     _useMuramana = MenuCombo.Add("useMuramana", new CheckBox("Use Muramana"));
                     _useYoumuu = MenuCombo.Add("useYoumuu", new CheckBox("Use Youmuu's Ghostblade"));
@@ -163,6 +169,7 @@ namespace AddonTemplate
                 private static readonly CheckBox _useW;
                 private static readonly CheckBox _toggleQ;
                 private static readonly CheckBox _toggleW;
+                private static readonly CheckBox _DelayAutoHarass;
                 private static readonly Slider _manaQ;
                 private static readonly Slider _manaW;
 
@@ -182,6 +189,10 @@ namespace AddonTemplate
                 public static bool ToggleW
                 {
                     get { return _toggleW.CurrentValue; }
+                }
+                public static bool DelayAutoHarass
+                {
+                    get { return _DelayAutoHarass.CurrentValue; }
                 }
 
                 public static int ManaQ
@@ -206,13 +217,13 @@ namespace AddonTemplate
                     MenuHarass.AddSeparator();
                     foreach (var source in ObjectManager.Get<AIHeroClient>().Where(a => a.IsEnemy))
                     {
-                        MenuHarass.Add(source.ChampionName + "harass", new CheckBox("Auto harass " + source.ChampionName, true));
+                        MenuHarass.Add(source.ChampionName + "harass", new CheckBox("Harass " + source.ChampionName, true));
                     }
                     MenuHarass.AddSeparator();
                     MenuHarass.AddGroupLabel("Mana Management");
                     _manaQ = MenuHarass.Add("harassManaQ", new Slider("Minimum mana to use Q ({0}%)", 40));
                     _manaW = MenuHarass.Add("harassManaW", new Slider("Minimum mana to use W ({0}%)", 40));
-
+                    _DelayAutoHarass = MenuHarass.Add("DelayAutoHarass", new CheckBox("Delay before auto Harass"));
                 }
 
                 public static void Initialize()
@@ -391,6 +402,7 @@ namespace AddonTemplate
                 private static readonly CheckBox _UseQOnUnkillable;
                 private static readonly CheckBox _EGapClos;
                 private static readonly CheckBox _UseQUnderTurret;
+                private static readonly CheckBox _AutoTear;
                 private static readonly Slider _PredQ;
                 private static readonly Slider _PredW;
                 private static readonly Slider _PredR;
@@ -406,7 +418,10 @@ namespace AddonTemplate
                 {
                     get { return _CcW.CurrentValue; }
                 }
-
+                public static bool AutoTear
+                {
+                    get { return _AutoTear.CurrentValue; }
+                }
                 public static bool UseQOnUnkillable
                 {
                     get { return _UseQOnUnkillable.CurrentValue; }
@@ -454,6 +469,7 @@ namespace AddonTemplate
                     MenuMisc.AddGroupLabel("Use E to anti gap close");
                     _EGapClos = MenuMisc.Add("EGapClos", new CheckBox("Use E on Gap closer"));
                     MenuMisc.AddSeparator();
+                    _AutoTear = MenuMisc.Add("AutoTear", new CheckBox("Enable Auto Tear at base"));
                     MenuMisc.AddGroupLabel("Hit Chance");
                     MenuMisc.AddLabel("HitChance : 1 = Low, 2 = Medium, 3 = High");
                     _PredQ = MenuMisc.Add("PredQ", new Slider("Q HitChance", 3, 1, 3));

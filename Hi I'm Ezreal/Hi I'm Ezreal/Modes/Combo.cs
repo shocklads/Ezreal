@@ -94,7 +94,7 @@ namespace AddonTemplate.Modes
                             var colliHero in
                                 heroes.Where(
                                     colliHero =>
-                                        !colliHero.IsDead && colliHero.IsVisible && colliHero.IsInRange(hero, 3000)))
+                                        !colliHero.IsDead && colliHero.IsVisible && colliHero.IsInRange(hero, Config.Modes.Combo.RRange)))
                         {
                             if (Prediction.Position.Collision.LinearMissileCollision(colliHero, startPos, endPos,
                                 SpellManager.R.Speed, SpellManager.R.Width, SpellManager.R.CastDelay))
