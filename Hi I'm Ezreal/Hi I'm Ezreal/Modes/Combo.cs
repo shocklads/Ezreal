@@ -84,7 +84,7 @@ namespace AddonTemplate.Modes
             if (R.IsReady())
             {
                 var heroes = EntityManager.Heroes.Enemies;
-                foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible && hero.IsInRange(Player.Instance, 3000)))
+                foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible && hero.IsInRange(Player.Instance, Config.Modes.Combo.RRange)))
                 {
                     var predR = R.GetPrediction(hero);
                     if (Settings.UseR && Player.Instance.Position.CountAlliesInRange(2000) <= 3 && hero.IsKillable(SpellSlot.R) && predR.HitChance >= SpellManager.PredR() && (!Q.IsReady() || !hero.IsKillable(SpellSlot.Q)) && (!W.IsReady() || !hero.IsKillable(SpellSlot.W)))
