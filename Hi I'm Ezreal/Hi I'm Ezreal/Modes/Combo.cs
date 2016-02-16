@@ -44,6 +44,13 @@ namespace AddonTemplate.Modes
             }
         }
 
+        public static float GetArrivalTime(float distance, float delay, float missileSpeed = 0)
+        {
+            if (missileSpeed != 0)
+                return distance / missileSpeed + delay;
+
+            return delay;
+        }
         public override void Execute()
         {
             Config.LastComboPressed = Game.Time;
@@ -82,7 +89,8 @@ namespace AddonTemplate.Modes
                     var predR = R.GetPrediction(hero);
                     if (Settings.UseR && Player.Instance.Position.CountAlliesInRange(2000) <= 3 && hero.IsKillable(SpellSlot.R) && predR.HitChance >= SpellManager.PredR() && (!Q.IsReady() || !hero.IsKillable(SpellSlot.Q)) && (!W.IsReady() || !hero.IsKillable(SpellSlot.W)))
                     {
-                         R.Cast(predR.CastPosition);
+                        var castPosition = Prediction.Position.PredictUnitPosition(hero, (int)Math.Round(GetArrivalTime(Player.Instance.Distance(hero), 0.5f, R.Speed)));
+                        R.Cast(castPosition.To3D());
                     }
                     if (Settings.UseRSeveral)
                     {
