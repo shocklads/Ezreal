@@ -408,6 +408,7 @@ namespace AddonTemplate
                 private static readonly CheckBox _EGapClos;
                 private static readonly CheckBox _UseQUnderTurret;
                 private static readonly CheckBox _AutoTear;
+                private static readonly CheckBox _EFlee;
                 private static readonly Slider _PredQ;
                 private static readonly Slider _PredW;
                 private static readonly Slider _PredR;
@@ -426,6 +427,10 @@ namespace AddonTemplate
                 public static bool AutoTear
                 {
                     get { return _AutoTear.CurrentValue; }
+                }
+                public static bool EFlee
+                {
+                    get { return _EFlee.CurrentValue; }
                 }
                 public static bool UseQOnUnkillable
                 {
@@ -475,6 +480,7 @@ namespace AddonTemplate
                     _EGapClos = MenuMisc.Add("EGapClos", new CheckBox("Use E on Gap closer"));
                     MenuMisc.AddSeparator();
                     _AutoTear = MenuMisc.Add("AutoTear", new CheckBox("Enable Auto Tear at base"));
+                    _EFlee = MenuMisc.Add("EFlee", new CheckBox("Use E to flee"));
                     MenuMisc.AddGroupLabel("Hit Chance");
                     MenuMisc.AddLabel("HitChance : 1 = Low, 2 = Medium, 3 = High");
                     _PredQ = MenuMisc.Add("PredQ", new Slider("Q HitChance", 3, 1, 3));

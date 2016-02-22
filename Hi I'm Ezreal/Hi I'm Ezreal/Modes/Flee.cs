@@ -1,4 +1,7 @@
-﻿using EloBuddy.SDK;
+﻿using System.Net.Configuration;
+using EloBuddy;
+using EloBuddy.SDK;
+using Settings = AddonTemplate.Config.Modes.Misc;
 
 namespace AddonTemplate.Modes
 {
@@ -11,6 +14,10 @@ namespace AddonTemplate.Modes
 
         public override void Execute()
         {
+            if (SpellManager.E.IsReady() && Settings.EFlee)
+            {
+                E.Cast(Game.CursorPos);
+            }
         }
     }
 }
