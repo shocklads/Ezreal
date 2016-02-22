@@ -99,35 +99,47 @@ namespace AddonTemplate.Modes
                 var heroes = EntityManager.Heroes.Enemies;
                 foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible && hero.IsInRange(Player.Instance, Config.Modes.Combo.RRange)))
                 {
-                /*    var predR = R.GetPrediction(hero);
-                    if (Settings.UseR && Player.Instance.Position.CountAlliesInRange(2000) <= 3 && hero.IsKillable(SpellSlot.R) && predR.HitChance >= SpellManager.PredR() && (!Q.IsReady() || !hero.IsKillable(SpellSlot.Q)) && (!W.IsReady() || !hero.IsKillable(SpellSlot.W)))
+                    if (hero != null)
                     {
-                        var castPosition = Prediction.Position.PredictUnitPosition(hero, (int)Math.Round(GetArrivalTime(Player.Instance.Distance(hero), 0.5f, R.Speed)));
-                        R.Cast(castPosition.To3D());
-                    }*/
-                  /*if (Settings.UseRSeveral)
-                    {
-                        var collision = new List<AIHeroClient>();
-                        var startPos = Player.Instance.Position.To2D();
-                        var endPos = hero.Position.To2D();
-                        collision.Clear();
-                        foreach (
-                            var colliHero in
-                                heroes.Where(
-                                    colliHero =>
-                                        !colliHero.IsDead && colliHero.IsVisible && colliHero.IsInRange(hero, Config.Modes.Combo.RRange)))
+                        var predR = R.GetPrediction(hero);
+                        if (Settings.UseR && Player.Instance.Position.CountAlliesInRange(2000) <= 3 &&
+                            hero.IsKillable(SpellSlot.R) && predR.HitChance >= SpellManager.PredR() &&
+                            (!Q.IsReady() || !hero.IsKillable(SpellSlot.Q)) &&
+                            (!W.IsReady() || !hero.IsKillable(SpellSlot.W)))
                         {
-                            if (Prediction.Position.Collision.LinearMissileCollision(colliHero, startPos, endPos,
-                                SpellManager.R.Speed, SpellManager.R.Width, SpellManager.R.CastDelay))
+                            var castPosition = Prediction.Position.PredictUnitPosition(hero,
+                                (int)
+                                    Math.Round(GetArrivalTime(Player.Instance.Distance(hero), 0.5f, SpellManager.R.Speed)));
+                            R.Cast(castPosition.To3D());
+                        }
+                        if (Settings.UseRSeveral)
+                        {
+                            var collision = new List<AIHeroClient>();
+                            var startPos = Player.Instance.Position.To2D();
+                            var endPos = hero.Position.To2D();
+                            collision.Clear();
+                            foreach (
+                                var colliHero in
+                                    heroes.Where(
+                                        colliHero =>
+                                            !colliHero.IsDead && colliHero.IsVisible &&
+                                            colliHero.IsInRange(hero, Config.Modes.Combo.RRange)))
                             {
-                                collision.Add(colliHero);
-                            }
-                            if (collision.Count >= Settings.NumberR)
-                            {
-                                R.Cast(hero);
+                                if (colliHero != null)
+                                {
+                                    if (Prediction.Position.Collision.LinearMissileCollision(colliHero, startPos, endPos,
+                                        SpellManager.R.Speed, SpellManager.R.Width, SpellManager.R.CastDelay))
+                                    {
+                                        collision.Add(colliHero);
+                                    }
+                                    if (collision.Count >= Settings.NumberR)
+                                    {
+                                        R.Cast(hero);
+                                    }
+                                }
                             }
                         }
-                   }*/
+                    }
                 }
            }
         }
