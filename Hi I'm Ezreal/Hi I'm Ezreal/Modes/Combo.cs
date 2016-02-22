@@ -94,17 +94,17 @@ namespace AddonTemplate.Modes
                     E.Cast(Game.CursorPos);
                 }
             }
-          /* if (R.IsReady())
+          if (R.IsReady())
             {
                 var heroes = EntityManager.Heroes.Enemies;
                 foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible && hero.IsInRange(Player.Instance, Config.Modes.Combo.RRange)))
                 {
-                    var predR = R.GetPrediction(hero);
+                /*    var predR = R.GetPrediction(hero);
                     if (Settings.UseR && Player.Instance.Position.CountAlliesInRange(2000) <= 3 && hero.IsKillable(SpellSlot.R) && predR.HitChance >= SpellManager.PredR() && (!Q.IsReady() || !hero.IsKillable(SpellSlot.Q)) && (!W.IsReady() || !hero.IsKillable(SpellSlot.W)))
                     {
                         var castPosition = Prediction.Position.PredictUnitPosition(hero, (int)Math.Round(GetArrivalTime(Player.Instance.Distance(hero), 0.5f, R.Speed)));
                         R.Cast(castPosition.To3D());
-                    }
+                    }*/
                   if (Settings.UseRSeveral)
                     {
                         var collision = new List<AIHeroClient>();
@@ -129,7 +129,7 @@ namespace AddonTemplate.Modes
                         }
                    }
                 }
-           }*/
+           }
         }
     }
 }
