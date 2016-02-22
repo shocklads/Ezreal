@@ -77,6 +77,7 @@ namespace AddonTemplate
                 private static readonly CheckBox _useRSeveral;
                 private static readonly Slider _numberR;
                 private static readonly Slider _RRange;
+                private static readonly Slider _MinRRange;
                 private static readonly Slider _minHPBotrk;
                 private static readonly Slider _enemyMinHPBotrk;
                 private static readonly CheckBox _useMuramana;
@@ -109,6 +110,9 @@ namespace AddonTemplate
                 public static int RRange
                 {
                     get { return _RRange.CurrentValue; }
+                }public static int MinRRange
+                {
+                    get { return _MinRRange.CurrentValue; }
                 }
 
                 public static bool UseMuramana
@@ -149,7 +153,8 @@ namespace AddonTemplate
                     MenuCombo.AddSeparator();
                     _useRSeveral = MenuCombo.Add("comboUseRSeveral", new CheckBox("Use R to damage several enemies"));
                     _numberR = MenuCombo.Add("combonumberR", new Slider("Min enemy to use R", 2, 1, 5));
-                    _RRange = MenuCombo.Add("RRange", new Slider("R Range", 3000, 1, 15000));
+                    _MinRRange = MenuCombo.Add("MinRRange", new Slider("Min R Range", 300, 1, 15000));
+                    _RRange = MenuCombo.Add("RRange", new Slider("MAx R Range", 3000, 1, 15000));
                     MenuCombo.AddSeparator();
                     _useMuramana = MenuCombo.Add("useMuramana", new CheckBox("Use Muramana"));
                     _useYoumuu = MenuCombo.Add("useYoumuu", new CheckBox("Use Youmuu's Ghostblade"));

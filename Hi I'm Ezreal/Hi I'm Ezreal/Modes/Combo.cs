@@ -99,19 +99,16 @@ namespace AddonTemplate.Modes
                 var heroes = EntityManager.Heroes.Enemies;
                 foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible && hero.IsInRange(Player.Instance, Config.Modes.Combo.RRange)))
                 {
-                    if (hero != null)
-                    {
                         var predR = R.GetPrediction(hero);
                         if (Settings.UseR && Player.Instance.Position.CountAlliesInRange(2000) <= 3 &&
                             hero.IsKillable(SpellSlot.R) && predR.HitChance >= SpellManager.PredR() &&
                             (!Q.IsReady() || !hero.IsKillable(SpellSlot.Q)) &&
-                            (!W.IsReady() || !hero.IsKillable(SpellSlot.W)))
+                            (!W.IsReady() || !hero.IsKillable(SpellSlot.W)) &&
+                            hero.Distance(Player.Instance) > Settings.MinRRange && hero.Distance(Player.Instance) < Settings.RRange)
                         {
-                            var castPosition = Prediction.Position.PredictUnitPosition(hero,
-                                (int)
-                                    Math.Round(GetArrivalTime(Player.Instance.Distance(hero), 0.5f, SpellManager.R.Speed)));
-                            R.Cast(castPosition.To3D());
+                            R.Cast(hero);
                         }
+                    
                         if (Settings.UseRSeveral)
                         {
                             var collision = new List<AIHeroClient>();
@@ -125,8 +122,6 @@ namespace AddonTemplate.Modes
                                             !colliHero.IsDead && colliHero.IsVisible &&
                                             colliHero.IsInRange(hero, Config.Modes.Combo.RRange)))
                             {
-                                if (colliHero != null)
-                                {
                                     if (Prediction.Position.Collision.LinearMissileCollision(colliHero, startPos, endPos,
                                         SpellManager.R.Speed, SpellManager.R.Width, SpellManager.R.CastDelay))
                                     {
@@ -136,8 +131,6 @@ namespace AddonTemplate.Modes
                                     {
                                         R.Cast(hero);
                                     }
-                                }
-                            }
                         }
                     }
                 }
