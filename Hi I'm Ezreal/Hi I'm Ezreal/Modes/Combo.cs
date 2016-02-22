@@ -81,7 +81,7 @@ namespace AddonTemplate.Modes
                     E.Cast(Game.CursorPos);
                 }
             }
-            if (R.IsReady())
+           /* if (R.IsReady())
             {
                 var heroes = EntityManager.Heroes.Enemies;
                 foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible && hero.IsInRange(Player.Instance, Config.Modes.Combo.RRange)))
@@ -92,7 +92,7 @@ namespace AddonTemplate.Modes
                         var castPosition = Prediction.Position.PredictUnitPosition(hero, (int)Math.Round(GetArrivalTime(Player.Instance.Distance(hero), 0.5f, R.Speed)));
                         R.Cast(castPosition.To3D());
                     }
-                    if (Settings.UseRSeveral)
+                  if (Settings.UseRSeveral)
                     {
                         var collision = new List<AIHeroClient>();
                         var startPos = Player.Instance.Position.To2D();
@@ -114,9 +114,9 @@ namespace AddonTemplate.Modes
                                 R.Cast(hero);
                             }
                         }
-                    }
+                   }
                 }
-            }
+           }*/
         }
     }
 }
