@@ -51,13 +51,6 @@ namespace AddonTemplate.Modes
             }
         }
 
-        public static float GetArrivalTime(float distance, float delay, float missileSpeed = 0)
-        {
-            if (missileSpeed != 0)
-                return distance / missileSpeed + delay;
-
-            return delay;
-        }
         public override void Execute()
         {
             Config.LastComboPressed = Game.Time;
@@ -99,11 +92,10 @@ namespace AddonTemplate.Modes
                 var heroes = EntityManager.Heroes.Enemies;
                 foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible && hero.IsInRange(Player.Instance, Config.Modes.Combo.RRange)))
                 {
-                        var predR = R.GetPrediction(hero);
                         if (Settings.UseR && Player.Instance.Position.CountAlliesInRange(2000) <= 3 &&
-                            hero.IsKillable(SpellSlot.R) && predR.HitChance >= SpellManager.PredR() &&
-                            (!Q.IsReady() || !hero.IsKillable(SpellSlot.Q)) &&
-                            (!W.IsReady() || !hero.IsKillable(SpellSlot.W)) &&
+                            hero.IsKillable(SpellSlot.R) &&
+                            !hero.IsKillable(SpellSlot.Q) &&
+                            !hero.IsKillable(SpellSlot.W) &&
                             hero.Distance(Player.Instance) > Settings.MinRRange && hero.Distance(Player.Instance) < Settings.RRange)
                         {
                             R.Cast(hero);
