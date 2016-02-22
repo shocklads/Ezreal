@@ -34,13 +34,20 @@ namespace AddonTemplate.Modes
             {
                 Config.Youmuu.Cast();
             }
-            if (Settings.useBotrk && Item.HasItem(Config.Cutlass.Id) && Item.CanUseItem(Config.Cutlass.Id) && Player.Instance.HealthPercent < Settings.MinHPBotrk && target.HealthPercent < Settings.EnemyMinHPBotrk)
+            if (target != null)
             {
-             Item.UseItem(Config.Cutlass.Id, target);
-            }
-            if (Settings.useBotrk && Item.HasItem(Config.Botrk.Id) && Item.CanUseItem(Config.Botrk.Id) && Player.Instance.HealthPercent < Settings.MinHPBotrk && target.HealthPercent < Settings.EnemyMinHPBotrk)
-            {
-                Config.Botrk.Cast(target);
+                if (Settings.useBotrk && Item.HasItem(Config.Cutlass.Id) && Item.CanUseItem(Config.Cutlass.Id) &&
+                    Player.Instance.HealthPercent < Settings.MinHPBotrk &&
+                    target.HealthPercent < Settings.EnemyMinHPBotrk)
+                {
+                    Item.UseItem(Config.Cutlass.Id, target);
+                }
+                if (Settings.useBotrk && Item.HasItem(Config.Botrk.Id) && Item.CanUseItem(Config.Botrk.Id) &&
+                    Player.Instance.HealthPercent < Settings.MinHPBotrk &&
+                    target.HealthPercent < Settings.EnemyMinHPBotrk)
+                {
+                    Config.Botrk.Cast(target);
+                }
             }
         }
 
@@ -55,22 +62,28 @@ namespace AddonTemplate.Modes
         {
             Config.LastComboPressed = Game.Time;
             ItemUsage();
-            if (Settings.UseQ && Q.IsReady())
+           if (Settings.UseQ && Q.IsReady())
             {
                 var target = TargetSelector.GetTarget(Q.Range - 50, DamageType.Physical);
-                var predQ = Q.GetPrediction(target);
-                if (target != null && predQ.HitChance >= SpellManager.PredQ())
+                if (target != null)
                 {
-                    Q.Cast(predQ.CastPosition);
+                    var predQ = Q.GetPrediction(target);
+                    if (predQ.HitChance >= SpellManager.PredQ())
+                    {
+                        Q.Cast(predQ.CastPosition);
+                    }
                 }
             }
             if (Settings.UseW && W.IsReady())
             {
                 var target = TargetSelector.GetTarget(W.Range - 50, DamageType.Physical);
-                var predW = W.GetPrediction(target);
-                if (target != null && predW.HitChance >= SpellManager.PredW())
+                if (target != null)
                 {
-                    W.Cast(predW.CastPosition);
+                    var predW = W.GetPrediction(target);
+                    if (target != null && predW.HitChance >= SpellManager.PredW())
+                    {
+                        W.Cast(predW.CastPosition);
+                    }
                 }
             }
             if (Settings.UseE && E.IsReady())
@@ -81,7 +94,7 @@ namespace AddonTemplate.Modes
                     E.Cast(Game.CursorPos);
                 }
             }
-           /* if (R.IsReady())
+          /* if (R.IsReady())
             {
                 var heroes = EntityManager.Heroes.Enemies;
                 foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible && hero.IsInRange(Player.Instance, Config.Modes.Combo.RRange)))

@@ -65,25 +65,34 @@ namespace AddonTemplate.Modes
             if (Config.Modes.Harass.ToggleQ && Player.Instance.ManaPercent > Config.Modes.Harass.ManaQ && Q.IsReady())
             {
                 var target = TargetSelector.GetTarget(Q.Range - 50, DamageType.Physical);
-                var predQ = Q.GetPrediction(target);
-                if (target != null && Config.Modes.MenuHarass[target.ChampionName + "harass"].Cast<CheckBox>().CurrentValue && predQ.HitChance >= SpellManager.PredQ())
+                if (target != null)
                 {
-                    if (Config.Modes.Harass.DelayAutoHarass)
-                        Core.DelayAction(() => Q.Cast(predQ.CastPosition), 500);
-                    else
-                        Q.Cast(predQ.CastPosition);
+                    var predQ = Q.GetPrediction(target);
+                    if (Config.Modes.MenuHarass[target.ChampionName + "harass"].Cast<CheckBox>().CurrentValue &&
+                        predQ.HitChance >= SpellManager.PredQ())
+                    {
+                        if (Config.Modes.Harass.DelayAutoHarass)
+                            Core.DelayAction(() => Q.Cast(predQ.CastPosition), 500);
+                        else
+                            Q.Cast(predQ.CastPosition);
+                    }
                 }
             }
             if (Config.Modes.Harass.ToggleW && Player.Instance.ManaPercent > Config.Modes.Harass.ManaW && W.IsReady())
             {
                 var target = TargetSelector.GetTarget(W.Range - 50, DamageType.Physical);
-                var predW = W.GetPrediction(target);
-                if (target != null && Config.Modes.MenuHarass[target.ChampionName + "harass"].Cast<CheckBox>().CurrentValue && predW.HitChance >= SpellManager.PredW())
+                if (target != null)
                 {
-                    if (Config.Modes.Harass.DelayAutoHarass)
-                        Core.DelayAction(() => W.Cast(predW.CastPosition), 500);
-                    else
-                        W.Cast(predW.CastPosition);
+                    var predW = W.GetPrediction(target);
+                    if (target != null &&
+                        Config.Modes.MenuHarass[target.ChampionName + "harass"].Cast<CheckBox>().CurrentValue &&
+                        predW.HitChance >= SpellManager.PredW())
+                    {
+                        if (Config.Modes.Harass.DelayAutoHarass)
+                            Core.DelayAction(() => W.Cast(predW.CastPosition), 500);
+                        else
+                            W.Cast(predW.CastPosition);
+                    }
                 }
             }
         }
