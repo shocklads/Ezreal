@@ -55,10 +55,10 @@ namespace AddonTemplate.Modes
         {
             Config.LastComboPressed = Game.Time;
             ItemUsage();
-           if (Settings.UseQ && Q.IsReady())
+            if (Settings.UseQ && Q.IsReady())
             {
                 var target = TargetSelector.GetTarget(Q.Range - 50, DamageType.Physical);
-                if (target != null)
+                if (target != null && target.IsValidTarget())
                 {
                     var predQ = Q.GetPrediction(target);
                     if (predQ.HitChance >= SpellManager.PredQ())
@@ -70,10 +70,10 @@ namespace AddonTemplate.Modes
             if (Settings.UseW && W.IsReady())
             {
                 var target = TargetSelector.GetTarget(W.Range - 50, DamageType.Physical);
-                if (target != null)
+                if (target != null && target.IsValidTarget())
                 {
                     var predW = W.GetPrediction(target);
-                    if (target != null && predW.HitChance >= SpellManager.PredW())
+                    if (predW.HitChance >= SpellManager.PredW())
                     {
                         W.Cast(predW.CastPosition);
                     }
@@ -82,51 +82,49 @@ namespace AddonTemplate.Modes
             if (Settings.UseE && E.IsReady())
             {
                 var target = TargetSelector.GetTarget(E.Range, DamageType.Physical);
-                if (target != null)
+                if (target != null && target.IsValidTarget())
                 {
                     E.Cast(Game.CursorPos);
                 }
             }
-          if (R.IsReady())
+            if (R.IsReady())
             {
-                var heroes = EntityManager.Heroes.Enemies;
-                foreach (var hero in heroes.Where(hero => !hero.IsDead && hero.IsVisible && hero.IsInRange(Player.Instance, Config.Modes.Combo.RRange)))
+                foreach (var hero in EntityManager.Heroes.Enemies.Where(hero => hero.IsValidTarget(Settings.RRange)))
                 {
-                        if (Settings.UseR && Player.Instance.Position.CountAlliesInRange(2000) <= 3 &&
-                            hero.IsKillable(SpellSlot.R) &&
-                            !hero.IsKillable(SpellSlot.Q) &&
-                            !hero.IsKillable(SpellSlot.W) &&
-                            hero.Distance(Player.Instance) > Settings.MinRRange && hero.Distance(Player.Instance) < Settings.RRange)
+                    if (Settings.UseR && Player.Instance.Position.CountAlliesInRange(2000) <= 3 &&
+                        hero.IsKillable(SpellSlot.R) &&
+                        !hero.IsKillable(SpellSlot.Q) &&
+                        !hero.IsKillable(SpellSlot.W) &&
+                        hero.Distance(Player.Instance) > Settings.MinRRange && hero.Distance(Player.Instance) < Settings.RRange)
+                    {
+                        R.Cast(hero);
+                    }
+                    if (Settings.UseRSeveral)
+                    {
+                        var collision = new List<AIHeroClient>();
+                        var startPos = Player.Instance.Position.To2D();
+                        var endPos = hero.Position.To2D();
+                        collision.Clear();
+                        foreach (
+                            var colliHero in
+                                EntityManager.Heroes.Enemies.Where(
+                                    colliHero =>
+                                        !colliHero.IsDead && colliHero.IsVisible &&
+                                        colliHero.IsInRange(hero, Config.Modes.Combo.RRange)))
                         {
-                            R.Cast(hero);
-                        }
-                    
-                        if (Settings.UseRSeveral)
-                        {
-                            var collision = new List<AIHeroClient>();
-                            var startPos = Player.Instance.Position.To2D();
-                            var endPos = hero.Position.To2D();
-                            collision.Clear();
-                            foreach (
-                                var colliHero in
-                                    heroes.Where(
-                                        colliHero =>
-                                            !colliHero.IsDead && colliHero.IsVisible &&
-                                            colliHero.IsInRange(hero, Config.Modes.Combo.RRange)))
+                            if (Prediction.Position.Collision.LinearMissileCollision(colliHero, startPos, endPos,
+                                SpellManager.R.Speed, SpellManager.R.Width, SpellManager.R.CastDelay))
                             {
-                                    if (Prediction.Position.Collision.LinearMissileCollision(colliHero, startPos, endPos,
-                                        SpellManager.R.Speed, SpellManager.R.Width, SpellManager.R.CastDelay))
-                                    {
-                                        collision.Add(colliHero);
-                                    }
-                                    if (collision.Count >= Settings.NumberR)
-                                    {
-                                        R.Cast(hero);
-                                    }
+                                collision.Add(colliHero);
+                            }
+                            if (collision.Count >= Settings.NumberR)
+                            {
+                                R.Cast(hero);
+                            }
                         }
                     }
                 }
-           }
+            }
         }
     }
 }
