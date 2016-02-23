@@ -99,11 +99,6 @@ namespace AddonTemplate.Modes
 
         private static void QIfUnkillable()
         {
-            if (!PermaActive.ShouldQMinion())
-            {
-                return;
-            }
-
             if (Player.Instance.ManaPercent > Config.Modes.Clear.ManaQ)
             {
                 foreach (
@@ -112,7 +107,7 @@ namespace AddonTemplate.Modes
                             Player.Instance.ServerPosition, SpellManager.Q.Range))
                 {
                     if (Prediction.Health.GetPrediction(minions, (int)(Player.Instance.AttackDelay * 1000)) <= 0 &&
-                        !Orbwalker.CanAutoAttack)
+                        (!Orbwalker.CanAutoAttack || !Player.Instance.IsInAutoAttackRange(minions)))
                     {
                         if (Config.Modes.Misc.UseQOnUnkillable &&
                             Player.Instance.GetSpellDamage(minions, SpellSlot.Q) >= minions.Health &&

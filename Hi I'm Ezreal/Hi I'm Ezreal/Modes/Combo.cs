@@ -26,7 +26,7 @@ namespace AddonTemplate.Modes
         private void ItemUsage()
         {
             var target = TargetSelector.GetTarget(550, DamageType.Physical); // 550 = Botrk.Range
-            if (Settings.UseMuramana && Config.Muramana.IsOwned() && Config.Muramana.IsReady() && !Player.HasBuff("Muramana"))
+            if (Settings.UseMuramana && Config.Muramana.IsOwned() && Config.Muramana.IsReady() && !Player.HasBuff("Muramana") && Player.Instance.ManaPercent >= Settings.ManaMuramana)
             {
                 Config.Muramana.Cast();
             }
