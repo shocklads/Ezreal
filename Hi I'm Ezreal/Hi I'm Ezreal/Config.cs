@@ -342,7 +342,7 @@ namespace AddonTemplate
                     _KsW = MenuKillsteal.Add("KsW", new CheckBox("Use W", false));
                     _KsR = MenuKillsteal.Add("KsR", new CheckBox("Use R"));
                     _MinRRange = MenuKillsteal.Add("MinRRange", new Slider("Min R Range", 350, 1, 15000));
-                    _MaxRRange = MenuKillsteal.Add("RRange", new Slider("Max R Range", 4000, 1, 15000));
+                    _MaxRRange = MenuKillsteal.Add("RRange", new Slider("Max R Range", 4000, 1, 11000));
                     MenuKillsteal.AddSeparator();
                     MenuKillsteal.AddGroupLabel("Jungle steal");
                     MenuKillsteal.AddLabel("Disabled for now !");

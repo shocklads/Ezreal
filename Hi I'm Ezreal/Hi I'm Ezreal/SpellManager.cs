@@ -17,7 +17,7 @@ namespace AddonTemplate
             Q = new Spell.Skillshot(SpellSlot.Q, 1200, SkillShotType.Linear, 250, 2000, 60);
             W = new Spell.Skillshot(SpellSlot.W, 1050, SkillShotType.Linear, 250, 1600, 80);
             E = new Spell.Skillshot(SpellSlot.E, 475, SkillShotType.Linear, 250, 2000, 80);
-            R = new Spell.Skillshot(SpellSlot.R, 15000, SkillShotType.Linear, 1000, 2000, 160);
+            R = new Spell.Skillshot(SpellSlot.R, 11000, SkillShotType.Linear, 1000, 2000, 160);
             Q.AllowedCollisionCount = 0;
             W.AllowedCollisionCount = Int32.MaxValue;
             R.AllowedCollisionCount = Int32.MaxValue;
