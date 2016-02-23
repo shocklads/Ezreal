@@ -102,7 +102,7 @@ namespace AddonTemplate.Modes
                                 EntityManager.Heroes.Enemies.Where(
                                     colliHero =>
                                         !colliHero.IsDead && colliHero.IsVisible &&
-                                        colliHero.IsInRange(hero, 5000)))
+                                        colliHero.IsInRange(hero, 5000) && colliHero.IsValidTarget(5000)))
                         {
                             if (Prediction.Position.Collision.LinearMissileCollision(colliHero, startPos, endPos,
                                 SpellManager.R.Speed, SpellManager.R.Width, SpellManager.R.CastDelay))
