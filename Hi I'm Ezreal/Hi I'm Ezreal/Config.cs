@@ -73,11 +73,8 @@ namespace AddonTemplate
                 private static readonly CheckBox _useQ;
                 private static readonly CheckBox _useW;
                 private static readonly CheckBox _useE;
-                private static readonly CheckBox _useR;
                 private static readonly CheckBox _useRSeveral;
                 private static readonly Slider _numberR;
-                private static readonly Slider _RRange;
-                private static readonly Slider _MinRRange;
                 private static readonly Slider _minHPBotrk;
                 private static readonly Slider _enemyMinHPBotrk;
                 private static readonly CheckBox _useMuramana;
@@ -99,20 +96,9 @@ namespace AddonTemplate
                     get { return _useE.CurrentValue; }
                 }
 
-                public static bool UseR
-                {
-                    get { return _useR.CurrentValue; }
-                }
                 public static bool UseRSeveral
                 {
                     get { return _useRSeveral.CurrentValue; }
-                }
-                public static int RRange
-                {
-                    get { return _RRange.CurrentValue; }
-                }public static int MinRRange
-                {
-                    get { return _MinRRange.CurrentValue; }
                 }
 
                 public static bool UseMuramana
@@ -149,12 +135,8 @@ namespace AddonTemplate
                     _useQ = MenuCombo.Add("comboUseQ", new CheckBox("Use Q"));
                     _useW = MenuCombo.Add("comboUseW", new CheckBox("Use W"));
                     _useE = MenuCombo.Add("comboUseE", new CheckBox("Use E", false));
-                    _useR = MenuCombo.Add("comboUseR", new CheckBox("Use R"));
-                    MenuCombo.AddSeparator();
                     _useRSeveral = MenuCombo.Add("comboUseRSeveral", new CheckBox("Use R to damage several enemies"));
-                    _numberR = MenuCombo.Add("combonumberR", new Slider("Min enemy to use R", 2, 1, 5));
-                    _MinRRange = MenuCombo.Add("MinRRange", new Slider("Min R Range", 300, 1, 15000));
-                    _RRange = MenuCombo.Add("RRange", new Slider("MAx R Range", 3000, 1, 15000));
+                    _numberR = MenuCombo.Add("combonumberR", new Slider("Min enemy to use R", 3, 1, 5));
                     MenuCombo.AddSeparator();
                     _useMuramana = MenuCombo.Add("useMuramana", new CheckBox("Use Muramana"));
                     _useYoumuu = MenuCombo.Add("useYoumuu", new CheckBox("Use Youmuu's Ghostblade"));
@@ -296,6 +278,9 @@ namespace AddonTemplate
             {
                 private static readonly CheckBox _KsQ;
                 private static readonly CheckBox _KsW;
+                private static readonly CheckBox _KsR;
+                private static readonly Slider _MaxRRange;
+                private static readonly Slider _MinRRange;
                 private static readonly CheckBox _RedSteal;
                 private static readonly CheckBox _BlueSteal;
                 private static readonly CheckBox _DragonSteal;
@@ -309,6 +294,19 @@ namespace AddonTemplate
                 public static bool KsW
                 {
                     get { return _KsW.CurrentValue; }
+                }
+
+                public static bool KsR
+                {
+                    get { return _KsR.CurrentValue; }
+                }
+                public static int MaxRRange
+                {
+                    get { return _MaxRRange.CurrentValue; }
+                }
+                public static int MinRRange
+                {
+                    get { return _MinRRange.CurrentValue; }
                 }
 
                 public static bool RedSteal
@@ -336,6 +334,9 @@ namespace AddonTemplate
                     MenuKillsteal.AddGroupLabel("KillSteal");
                     _KsQ = MenuKillsteal.Add("KsQ", new CheckBox("Use Q"));
                     _KsW = MenuKillsteal.Add("KsW", new CheckBox("Use W", false));
+                    _KsR = MenuKillsteal.Add("KsR", new CheckBox("Use R"));
+                    _MinRRange = MenuKillsteal.Add("MinRRange", new Slider("Min R Range", 350, 1, 15000));
+                    _MaxRRange = MenuKillsteal.Add("RRange", new Slider("Max R Range", 4000, 1, 15000));
                     MenuKillsteal.AddSeparator();
                     MenuKillsteal.AddGroupLabel("Jungle steal");
                     MenuKillsteal.AddLabel("Disabled for now !");

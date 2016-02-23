@@ -87,19 +87,11 @@ namespace AddonTemplate.Modes
                     E.Cast(Game.CursorPos);
                 }
             }
-            if (R.IsReady())
+            if (Settings.UseRSeveral)
             {
-                foreach (var hero in EntityManager.Heroes.Enemies.Where(hero => hero.IsValidTarget(Settings.RRange)))
+                foreach (var hero in EntityManager.Heroes.Enemies.Where(hero => hero.IsValidTarget(5000)))
                 {
-                    if (Settings.UseR && Player.Instance.Position.CountAlliesInRange(2000) <= 3 &&
-                        hero.IsKillable(SpellSlot.R) &&
-                        !hero.IsKillable(SpellSlot.Q) &&
-                        !hero.IsKillable(SpellSlot.W) &&
-                        hero.Distance(Player.Instance) > Settings.MinRRange && hero.Distance(Player.Instance) < Settings.RRange)
-                    {
-                        R.Cast(hero);
-                    }
-                    if (Settings.UseRSeveral)
+                    if (R.IsReady())
                     {
                         var collision = new List<AIHeroClient>();
                         var startPos = Player.Instance.Position.To2D();
@@ -110,7 +102,7 @@ namespace AddonTemplate.Modes
                                 EntityManager.Heroes.Enemies.Where(
                                     colliHero =>
                                         !colliHero.IsDead && colliHero.IsVisible &&
-                                        colliHero.IsInRange(hero, Config.Modes.Combo.RRange)))
+                                        colliHero.IsInRange(hero, 5000)))
                         {
                             if (Prediction.Position.Collision.LinearMissileCollision(colliHero, startPos, endPos,
                                 SpellManager.R.Speed, SpellManager.R.Width, SpellManager.R.CastDelay))

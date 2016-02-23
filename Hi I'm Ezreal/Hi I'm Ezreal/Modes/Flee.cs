@@ -16,7 +16,15 @@ namespace AddonTemplate.Modes
         {
             if (SpellManager.E.IsReady() && Settings.EFlee)
             {
-                E.Cast(Game.CursorPos);
+                var tempPos = Game.CursorPos;
+                if (tempPos.IsInRange(Player.Instance.Position, SpellManager.E.Range))
+                {
+                    SpellManager.E.Cast(tempPos);
+                }
+                else
+                {
+                    SpellManager.E.Cast(Player.Instance.Position.Extend(tempPos, 450).To3DWorld());
+                }
             }
         }
     }

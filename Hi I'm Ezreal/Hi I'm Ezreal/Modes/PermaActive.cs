@@ -145,6 +145,13 @@ namespace AddonTemplate.Modes
                     W.Cast(W.GetPrediction(enemy).CastPosition);
                 }
             }
+            foreach (var enemy in EntityManager.Heroes.Enemies.Where(enemy => enemy.Distance(Player.Instance) > Settings.MinRRange && enemy.Distance(Player.Instance) < Settings.MaxRRange && enemy.IsValidTarget()))
+            {
+                if (Settings.KsR && Player.Instance.Position.CountAlliesInRange(2000) <= 3 && enemy.IsKillable(SpellSlot.R))
+                {
+                    R.Cast(R.GetPrediction(enemy).CastPosition);
+                }
+            }
         }
 
         public static void AutoCCed()
