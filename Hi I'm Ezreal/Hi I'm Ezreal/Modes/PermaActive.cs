@@ -99,7 +99,7 @@ namespace AddonTemplate.Modes
 
         private static void QIfUnkillable()
         {
-            if (Player.Instance.ManaPercent > Config.Modes.Clear.ManaQ)
+            if (Player.Instance.ManaPercent > Config.Modes.Clear.ManaQ && !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
             {
                 foreach (
                     var minions in
@@ -117,12 +117,6 @@ namespace AddonTemplate.Modes
                 }
             }
         }
-
-        private static bool ShouldQMinion()
-        {
-            return Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LastHit);
-        }
-
         public static void KsChamp()
         {
 
