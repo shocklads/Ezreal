@@ -1,0 +1,11 @@
+F:\Repository\Elobuddy-Addons\Hi I'm Ezreal\Hi I'm Ezreal\bin\Release\Hi I'm Ezreal.exe.config
+F:\Repository\Elobuddy-Addons\Hi I'm Ezreal\Hi I'm Ezreal\bin\Release\Hi I'm Ezreal.exe
+F:\Repository\Elobuddy-Addons\Hi I'm Ezreal\Hi I'm Ezreal\bin\Release\Hi I'm Ezreal.pdb
+F:\Repository\Elobuddy-Addons\Hi I'm Ezreal\Hi I'm Ezreal\bin\Release\EloBuddy.dll
+F:\Repository\Elobuddy-Addons\Hi I'm Ezreal\Hi I'm Ezreal\bin\Release\EloBuddy.SDK.dll
+F:\Repository\Elobuddy-Addons\Hi I'm Ezreal\Hi I'm Ezreal\bin\Release\SharpDX.dll
+F:\Repository\Elobuddy-Addons\Hi I'm Ezreal\Hi I'm Ezreal\bin\Release\SharpDX.Direct3D9.dll
+F:\Repository\Elobuddy-Addons\Hi I'm Ezreal\Hi I'm Ezreal\bin\Release\Newtonsoft.Json.dll
+F:\Repository\Elobuddy-Addons\Hi I'm Ezreal\Hi I'm Ezreal\obj\Release\Hi I'm Ezreal.csprojResolveAssemblyReference.cache
+F:\Repository\Elobuddy-Addons\Hi I'm Ezreal\Hi I'm Ezreal\obj\Release\Hi I'm Ezreal.exe
+F:\Repository\Elobuddy-Addons\Hi I'm Ezreal\Hi I'm Ezreal\obj\Release\Hi I'm Ezreal.pdb

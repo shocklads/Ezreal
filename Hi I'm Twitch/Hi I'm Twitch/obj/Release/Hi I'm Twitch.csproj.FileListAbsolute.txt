@@ -1,0 +1,11 @@
+F:\Repository\Elobuddy-Addons\Hi I'm Twitch\Hi I'm Twitch\bin\Release\AddonTemplate.exe.config
+F:\Repository\Elobuddy-Addons\Hi I'm Twitch\Hi I'm Twitch\bin\Release\AddonTemplate.exe
+F:\Repository\Elobuddy-Addons\Hi I'm Twitch\Hi I'm Twitch\bin\Release\AddonTemplate.pdb
+F:\Repository\Elobuddy-Addons\Hi I'm Twitch\Hi I'm Twitch\bin\Release\EloBuddy.dll
+F:\Repository\Elobuddy-Addons\Hi I'm Twitch\Hi I'm Twitch\bin\Release\EloBuddy.SDK.dll
+F:\Repository\Elobuddy-Addons\Hi I'm Twitch\Hi I'm Twitch\bin\Release\SharpDX.dll
+F:\Repository\Elobuddy-Addons\Hi I'm Twitch\Hi I'm Twitch\bin\Release\SharpDX.Direct3D9.dll
+F:\Repository\Elobuddy-Addons\Hi I'm Twitch\Hi I'm Twitch\bin\Release\Newtonsoft.Json.dll
+F:\Repository\Elobuddy-Addons\Hi I'm Twitch\Hi I'm Twitch\obj\Release\Hi I'm Twitch.csprojResolveAssemblyReference.cache
+F:\Repository\Elobuddy-Addons\Hi I'm Twitch\Hi I'm Twitch\obj\Release\AddonTemplate.exe
+F:\Repository\Elobuddy-Addons\Hi I'm Twitch\Hi I'm Twitch\obj\Release\AddonTemplate.pdb
