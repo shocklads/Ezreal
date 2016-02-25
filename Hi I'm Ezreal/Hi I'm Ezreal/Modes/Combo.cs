@@ -26,10 +26,6 @@ namespace AddonTemplate.Modes
         private void ItemUsage()
         {
             var target = TargetSelector.GetTarget(550, DamageType.Physical); // 550 = Botrk.Range
-            if (Settings.UseMuramana && Config.Muramana.IsOwned() && Config.Muramana.IsReady() && !Player.HasBuff("Muramana") && Player.Instance.ManaPercent >= Settings.ManaMuramana)
-            {
-                Config.Muramana.Cast();
-            }
             if (Settings.UseYoumuu && Config.Youmuu.IsOwned() && Config.Youmuu.IsReady())
             {
                 Config.Youmuu.Cast();
@@ -53,7 +49,6 @@ namespace AddonTemplate.Modes
 
         public override void Execute()
         {
-            Config.LastComboPressed = Game.Time;
             ItemUsage();
             if (Settings.UseQ && Q.IsReady())
             {

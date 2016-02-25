@@ -77,8 +77,6 @@ namespace AddonTemplate
                 private static readonly Slider _numberR;
                 private static readonly Slider _minHPBotrk;
                 private static readonly Slider _enemyMinHPBotrk;
-                private static readonly CheckBox _useMuramana;
-                private static readonly Slider _manaMuramana;
                 private static readonly CheckBox _useYoumuu;
                 private static readonly CheckBox _useBotrk;
 
@@ -102,10 +100,7 @@ namespace AddonTemplate
                     get { return _useRSeveral.CurrentValue; }
                 }
 
-                public static bool UseMuramana
-                {
-                    get { return _useMuramana.CurrentValue; }
-                }
+ 
 
                 public static bool UseYoumuu
                 {
@@ -120,10 +115,7 @@ namespace AddonTemplate
                 {
                     get { return _numberR.CurrentValue; }
                 }
-                public static int ManaMuramana
-                {
-                    get { return _manaMuramana.CurrentValue; }
-                }
+
                 
                 public static int MinHPBotrk
                 {
@@ -143,8 +135,6 @@ namespace AddonTemplate
                     _useRSeveral = MenuCombo.Add("comboUseRSeveral", new CheckBox("Use R to damage several enemies"));
                     _numberR = MenuCombo.Add("combonumberR", new Slider("Min enemy to use R", 3, 1, 5));
                     MenuCombo.AddSeparator();
-                    _useMuramana = MenuCombo.Add("useMuramana", new CheckBox("Use Muramana"));
-                    _manaMuramana = MenuCombo.Add("manaMuramana", new Slider("Min mana to use Muramana ({0}%)", 10));
                     _useYoumuu = MenuCombo.Add("useYoumuu", new CheckBox("Use Youmuu's Ghostblade"));
                     _useBotrk = MenuCombo.Add("useBotrk", new CheckBox("Use Blade of the ruined king"));
                     _minHPBotrk = MenuCombo.Add("minHPBotrk", new Slider("Min health to use Botrk ({0}%)", 80));
