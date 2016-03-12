@@ -47,6 +47,7 @@ namespace AddonTemplate
                 }
                 Vector2 saveVector = new Vector2(x_save, y_save);
                 Vector2 newVector = new Vector2(x, y);
+                if (x > 0 && x < 14500 && y > 0 && y < 14500 && x_save > 0 && x_save < 14500 && y_save > 0 && y_save < 14500) // Map limits (to fix bugged drawing)
                 Drawing.DrawLine(Drawing.WorldToMinimap(saveVector.To3D()), Drawing.WorldToMinimap(newVector.To3D()), 1,
                     System.Drawing.Color.YellowGreen);
                 x_save = x;
@@ -60,6 +61,7 @@ namespace AddonTemplate
 
             if (ambush != null)
             {
+                if (ambush.StartTime - Game.Time < -0.3) // Fix to visual flickering
                 return (ambush.EndTime - Game.Time);
             }
             return 0f;
