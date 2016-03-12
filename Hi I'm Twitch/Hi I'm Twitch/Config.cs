@@ -123,16 +123,28 @@ namespace AddonTemplate
             public static class Draw
             {
                 private static readonly CheckBox _dmgIndicator;
+                private static readonly CheckBox _sleathDistance;
+                private static readonly CheckBox _miniMapSleathDistance;
 
                 public static bool DamageIndicator
                 {
                     get { return _dmgIndicator.CurrentValue; }
+                }
+                public static bool StealthDistance
+                {
+                    get { return _sleathDistance.CurrentValue; }
+                }
+                public static bool MinimapStealthDistance
+                {
+                    get { return _miniMapSleathDistance.CurrentValue; }
                 }
 
                 static Draw()
                 {
                     MenuDraw.AddGroupLabel("Visual");
                     _dmgIndicator = MenuDraw.Add("damageIndicator", new CheckBox("Damage Indicator"));
+                    _sleathDistance = MenuDraw.Add("stealthdistance", new CheckBox("Stealth Distance"));
+                    _miniMapSleathDistance = MenuDraw.Add("minimapstealthdistance", new CheckBox("Stealth Distance on Minimap"));
                 }
 
                 public static void Initialize()
