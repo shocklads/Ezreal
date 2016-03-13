@@ -29,16 +29,19 @@ namespace AddonTemplate
             private static readonly Menu MenuCombo;
             private static readonly Menu MenuHarass;
             private static readonly Menu MenuDraw;
+            private static readonly Menu MenuKillSteal;
 
             static Modes()
             {
                 MenuCombo = Config.Menu.AddSubMenu("Combo");
                 MenuHarass = Config.Menu.AddSubMenu("Harass");
                 MenuDraw = Config.Menu.AddSubMenu("Visual");
+                MenuKillSteal = Config.Menu.AddSubMenu("KillSteal");
 
                 Combo.Initialize();
                 Harass.Initialize();
                 Draw.Initialize();
+                KillSteal.Initialize();
             }
 
             public static void Initialize()
@@ -152,10 +155,14 @@ namespace AddonTemplate
                 }
             }
 
-            public static class Misc
+            public static class KillSteal
             {
                 private static readonly CheckBox _eBigMinion;
                 private static readonly CheckBox _eBaronDragon;
+                private static readonly CheckBox _eChamp;
+                private static readonly CheckBox _eFullStacks;
+                private static readonly CheckBox _eOutOfRange;
+                private static readonly CheckBox _eDying;
 
                 public static bool EBigMinion
                 {
@@ -167,12 +174,32 @@ namespace AddonTemplate
                     get { return _eBaronDragon.CurrentValue; }
                 }
 
-                static Misc()
+                public static bool KsE
                 {
-                    MenuDraw.AddGroupLabel("Misc");
-                    _eBigMinion = MenuDraw.Add("ebigminion", new CheckBox("Use E on cannon minion"));
-                    _eBaronDragon = MenuDraw.Add("ebarondragon", new CheckBox("Use E on Baron / Dragon"));
+                    get { return _eChamp.CurrentValue; }
+                }
+                public static bool EFullStacks
+                {
+                    get { return _eFullStacks.CurrentValue; }
+                }
+                public static bool EOutOfRange
+                {
+                    get { return _eOutOfRange.CurrentValue; }
+                }
+                public static bool EDying
+                {
+                    get { return _eDying.CurrentValue; }
+                }
 
+                static KillSteal()
+                {
+                    MenuDraw.AddGroupLabel("KillSteall");
+                    _eChamp = MenuKillSteal.Add("echamp", new CheckBox("Use E to secure / KS champ"));
+                    _eBaronDragon = MenuKillSteal.Add("ebarondragon", new CheckBox("Use E to secure Baron / Dragon"));
+                    _eBigMinion = MenuKillSteal.Add("ebigminion", new CheckBox("Use E secure cannon minion"));
+                    _eFullStacks = MenuKillSteal.Add("efullstacks", new CheckBox("Use E if enemy have 5 stacks"));
+                    _eOutOfRange = MenuKillSteal.Add("eoutofrange", new CheckBox("Use E if enemy is going out of range"));
+                    _eDying = MenuKillSteal.Add("edying", new CheckBox("Use E if you are going to die"));
                 }
 
                 public static void Initialize()
