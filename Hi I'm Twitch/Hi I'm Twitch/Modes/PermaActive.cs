@@ -19,6 +19,7 @@ namespace AddonTemplate.Modes
             if (!Player.Instance.IsRecalling())
             {
                 EBigMinion();
+                EBaronDragon();
             }
         }
 
@@ -28,6 +29,19 @@ namespace AddonTemplate.Modes
             {
                 if (EntityManager.MinionsAndMonsters.EnemyMinions.Any(c => Player.Instance.Position.IsInRange(c.Position, SpellManager.E.Range)
                 && (c.BaseSkinName.Contains("Siege") || c.BaseSkinName.Contains("Super"))
+                && c.Health < DamageHelper.GetEDamage(c)))
+                {
+                    E.Cast();
+                }
+            }
+        }
+
+        private void EBaronDragon()
+        {
+            if (Config.Modes.Misc.EBaronDragon)
+            {
+                if (EntityManager.MinionsAndMonsters.Monsters.Any(c => Player.Instance.Position.IsInRange(c.Position, SpellManager.E.Range)
+                && (c.BaseSkinName.Contains("Dragon") || c.BaseSkinName.Contains("Baron") || c.BaseSkinName.Contains("Herald"))
                 && c.Health < DamageHelper.GetEDamage(c)))
                 {
                     E.Cast();
