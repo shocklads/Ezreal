@@ -151,6 +151,27 @@ namespace AddonTemplate
                 {
                 }
             }
+
+            public static class Misc
+            {
+                private static readonly CheckBox _eBigMinion;
+
+                public static bool EBigMinion
+                {
+                    get { return _eBigMinion.CurrentValue; }
+                }
+
+                static Misc()
+                {
+                    MenuDraw.AddGroupLabel("Misc");
+                    _eBigMinion = MenuDraw.Add("ebigminion", new CheckBox("Use E on cannon minion"));
+
+                }
+
+                public static void Initialize()
+                {
+                }
+            }
         }
     }
 }
