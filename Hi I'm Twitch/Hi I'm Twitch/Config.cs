@@ -1,4 +1,6 @@
-﻿using EloBuddy.SDK.Menu;
+﻿using EloBuddy;
+using EloBuddy.SDK;
+using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 
 // ReSharper disable InconsistentNaming
@@ -8,6 +10,9 @@ namespace AddonTemplate
     public static class Config
     {
         private const string MenuName = "AddonTemplate";
+        public static Item Youmuu = new Item(ItemId.Youmuus_Ghostblade);
+        public static Item Botrk = new Item(ItemId.Blade_of_the_Ruined_King);
+        public static Item Cutlass = new Item(ItemId.Bilgewater_Cutlass);
 
         private static readonly Menu Menu;
 
@@ -54,6 +59,29 @@ namespace AddonTemplate
                 private static readonly CheckBox _useW;
                 private static readonly CheckBox _useE;
                 private static readonly CheckBox _useR;
+                private static readonly Slider _minHPBotrk;
+                private static readonly Slider _enemyMinHPBotrk;
+                private static readonly CheckBox _useYoumuu;
+                private static readonly CheckBox _useBotrk;
+
+
+                public static bool UseYoumuu
+                {
+                    get { return _useYoumuu.CurrentValue; }
+                }
+                public static bool useBotrk
+                {
+                    get { return _useBotrk.CurrentValue; }
+                }
+                public static int MinHPBotrk
+                {
+                    get { return _minHPBotrk.CurrentValue; }
+                }
+                public static int EnemyMinHPBotrk
+                {
+                    get { return _enemyMinHPBotrk.CurrentValue; }
+                }
+
 
                 public static bool UseQ
                 {
@@ -79,6 +107,10 @@ namespace AddonTemplate
                     _useW = MenuCombo.Add("comboUseW", new CheckBox("Use W"));
                     _useE = MenuCombo.Add("comboUseE", new CheckBox("Use E"));
                     _useR = MenuCombo.Add("comboUseR", new CheckBox("Use R", false));
+                    _useYoumuu = MenuCombo.Add("useYoumuu", new CheckBox("Use Youmuu's Ghostblade"));
+                    _useBotrk = MenuCombo.Add("useBotrk", new CheckBox("Use Blade of the ruined king"));
+                    _minHPBotrk = MenuCombo.Add("minHPBotrk", new Slider("Min health to use Botrk ({0}%)", 80));
+                    _enemyMinHPBotrk = MenuCombo.Add("enemyMinHPBotrk", new Slider("Min enemy health to use Botrk ({0}%)", 80));
                 }
 
                 public static void Initialize()
