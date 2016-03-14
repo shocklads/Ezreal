@@ -9,7 +9,7 @@ namespace AddonTemplate
 {
     public static class Config
     {
-        private const string MenuName = "AddonTemplate";
+        private const string MenuName = "Hi I'm Twitch";
         public static Item Youmuu = new Item(ItemId.Youmuus_Ghostblade);
         public static Item Botrk = new Item(ItemId.Blade_of_the_Ruined_King);
         public static Item Cutlass = new Item(ItemId.Bilgewater_Cutlass);
@@ -35,18 +35,21 @@ namespace AddonTemplate
             private static readonly Menu MenuHarass;
             private static readonly Menu MenuDraw;
             private static readonly Menu MenuKillSteal;
+            private static readonly Menu MenuClear;
 
             static Modes()
             {
                 MenuCombo = Config.Menu.AddSubMenu("Combo");
                 MenuHarass = Config.Menu.AddSubMenu("Harass");
                 MenuDraw = Config.Menu.AddSubMenu("Visual");
-                MenuKillSteal = Config.Menu.AddSubMenu("KillSteal");
+                MenuKillSteal = Config.Menu.AddSubMenu("Contaminate usage");
+                MenuClear = Config.Menu.AddSubMenu("Clear");
 
                 Combo.Initialize();
                 Harass.Initialize();
                 Draw.Initialize();
                 KillSteal.Initialize();
+                Clear.Initialize();
             }
 
             public static void Initialize()
@@ -177,7 +180,11 @@ namespace AddonTemplate
                 static Draw()
                 {
                     MenuDraw.AddGroupLabel("Visual");
+                    MenuDraw.AddSeparator();
+                    MenuDraw.AddLabel("HP Bar");
                     _dmgIndicator = MenuDraw.Add("damageIndicator", new CheckBox("Damage Indicator"));
+                    MenuDraw.AddSeparator();
+                    MenuDraw.AddLabel("Stealth");
                     _sleathDistance = MenuDraw.Add("stealthdistance", new CheckBox("Stealth Distance"));
                     _miniMapSleathDistance = MenuDraw.Add("minimapstealthdistance", new CheckBox("Stealth Distance on Minimap"));
                 }
@@ -189,22 +196,13 @@ namespace AddonTemplate
 
             public static class KillSteal
             {
-                private static readonly CheckBox _eBigMinion;
-                private static readonly CheckBox _eBaronDragon;
                 private static readonly CheckBox _eChamp;
                 private static readonly CheckBox _eFullStacks;
+                private static readonly Slider _eNumberStacks;
                 private static readonly CheckBox _eOutOfRange;
+                private static readonly Slider _eOutOfRangeStacks;
                 private static readonly CheckBox _eDying;
 
-                public static bool EBigMinion
-                {
-                    get { return _eBigMinion.CurrentValue; }
-                }
-
-                public static bool EBaronDragon
-                {
-                    get { return _eBaronDragon.CurrentValue; }
-                }
 
                 public static bool KsE
                 {
@@ -222,22 +220,64 @@ namespace AddonTemplate
                 {
                     get { return _eDying.CurrentValue; }
                 }
+                public static int ENumberstacks
+                {
+                    get { return _eNumberStacks.CurrentValue; }
+                }
+
+                public static int EOutOfRangeStacks
+                {
+                    get { return _eOutOfRangeStacks.CurrentValue; }
+                }
+
 
                 static KillSteal()
                 {
-                    MenuDraw.AddGroupLabel("KillSteall");
+                    MenuKillSteal.AddGroupLabel("Contaminate usage");
                     _eChamp = MenuKillSteal.Add("echamp", new CheckBox("Use E to secure / KS champ"));
-                    _eBaronDragon = MenuKillSteal.Add("ebarondragon", new CheckBox("Use E to secure Baron / Dragon"));
-                    _eBigMinion = MenuKillSteal.Add("ebigminion", new CheckBox("Use E secure cannon minion"));
-                    _eFullStacks = MenuKillSteal.Add("efullstacks", new CheckBox("Use E if enemy have 5 stacks"));
-                    _eOutOfRange = MenuKillSteal.Add("eoutofrange", new CheckBox("Use E if enemy is going out of range"));
-                    _eDying = MenuKillSteal.Add("edying", new CheckBox("Use E if you are going to die"));
+                    MenuKillSteal.AddSeparator();
+                    _eFullStacks = MenuKillSteal.Add("efullstacks", new CheckBox("Use E if enemy have X stacks", false));
+                    _eNumberStacks = MenuKillSteal.Add("enumberstacks", new Slider("How many stacks to auto E ({0})", 6, 1, 6));
+                    MenuKillSteal.AddSeparator();
+                    _eOutOfRange = MenuKillSteal.Add("eoutofrange", new CheckBox("Use E if enemy is going out of range", false));
+                    _eOutOfRangeStacks = MenuKillSteal.Add("eoutofrangestacks", new Slider("How many stacks to auto E if out of range ({0})", 6, 1, 6));
+                    MenuKillSteal.AddSeparator();
+                    _eDying = MenuKillSteal.Add("edying", new CheckBox("Use E if you are about to die"));
                 }
 
                 public static void Initialize()
                 {
                 }
+        }
+
+        public static class Clear
+        {
+            private static readonly CheckBox _eBigMinion;
+            private static readonly CheckBox _eBaronDragon;
+
+            public static bool EBigMinion
+            {
+                get { return _eBigMinion.CurrentValue; }
+            }
+
+            public static bool EBaronDragon
+            {
+                get { return _eBaronDragon.CurrentValue; }
+            }
+
+
+
+            static Clear()
+            {
+                MenuClear.AddGroupLabel("Clear");
+                _eBaronDragon = MenuClear.Add("ebarondragon", new CheckBox("Use E to secure Baron / Dragon"));
+                _eBigMinion = MenuClear.Add("ebigminion", new CheckBox("Use E secure cannon minion"));
+            }
+
+            public static void Initialize()
+            {
             }
         }
     }
+}
 }

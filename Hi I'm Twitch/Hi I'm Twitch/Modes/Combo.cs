@@ -38,10 +38,7 @@ namespace AddonTemplate.Modes
 
         public override void Execute()
         {
-            if (Settings.UseQ && Q.IsReady())
-            {
-                ItemUsage();
-            }
+            ItemUsage();
         }
     }
 }

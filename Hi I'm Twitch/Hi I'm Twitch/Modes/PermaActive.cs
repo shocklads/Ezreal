@@ -29,7 +29,7 @@ namespace AddonTemplate.Modes
 
         private void EBigMinion()
         {
-            if (Config.Modes.KillSteal.EBigMinion)
+            if (Config.Modes.Clear.EBigMinion)
             {
                 if (EntityManager.MinionsAndMonsters.EnemyMinions.Any(c => Player.Instance.Position.IsInRange(c.Position, SpellManager.E.Range)
                 && (c.BaseSkinName.Contains("Siege") || c.BaseSkinName.Contains("Super"))
@@ -42,7 +42,7 @@ namespace AddonTemplate.Modes
 
         private void EBaronDragon()
         {
-            if (Config.Modes.KillSteal.EBaronDragon)
+            if (Config.Modes.Clear.EBaronDragon)
             {
                 if (EntityManager.MinionsAndMonsters.Monsters.Any(c => Player.Instance.Position.IsInRange(c.Position, SpellManager.E.Range)
                 && (c.BaseSkinName.Contains("Dragon") || c.BaseSkinName.Contains("Baron") || c.BaseSkinName.Contains("Herald"))
@@ -68,7 +68,7 @@ namespace AddonTemplate.Modes
             if (Config.Modes.KillSteal.EFullStacks)
             {
                 if (EntityManager.Heroes.Enemies.Any(c => Player.Instance.Position.IsInRange(c.Position, SpellManager.E.Range)
-                 && DamageHelper.getEStacks(c) == 6))
+                 && DamageHelper.getEStacks(c) >= Config.Modes.KillSteal.ENumberstacks))
                 {
                     E.Cast();
                 }
@@ -79,10 +79,10 @@ namespace AddonTemplate.Modes
             if (Config.Modes.KillSteal.EOutOfRange)
             {
                 foreach (var enemy in EntityManager.Heroes.Enemies.Where(c => Player.Instance.Position.IsInRange(c.Position, SpellManager.E.Range)
-                 && DamageHelper.getEStacks(c) > 1))
+                 && DamageHelper.getEStacks(c) >= Config.Modes.KillSteal.EOutOfRangeStacks))
                 {
-                    if (Player.Instance.Distance(Prediction.Position.PredictUnitPosition(enemy, 1)) > SpellManager.E.Range)
-                    E.Cast();
+                    if (Player.Instance.Distance(enemy.Position) > SpellManager.E.Range - 150)
+                        E.Cast();
                 }
             }
         }
@@ -91,7 +91,7 @@ namespace AddonTemplate.Modes
             if (Config.Modes.KillSteal.EDying)
             {
                 foreach (var enemy in EntityManager.Heroes.Enemies.Where(c => Player.Instance.Position.IsInRange(c.Position, SpellManager.E.Range)
-                    && DamageHelper.getEStacks(c) > 1))
+                    && DamageHelper.getEStacks(c) >= 1))
                 {
                     if (Player.Instance.HealthPercent < 10)
                     {
