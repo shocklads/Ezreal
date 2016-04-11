@@ -36,6 +36,7 @@ namespace AddonTemplate
             private static readonly Menu MenuDraw;
             private static readonly Menu MenuKillSteal;
             private static readonly Menu MenuClear;
+            private static readonly Menu MenuMisc;
 
             static Modes()
             {
@@ -44,12 +45,14 @@ namespace AddonTemplate
                 MenuDraw = Config.Menu.AddSubMenu("Visual");
                 MenuKillSteal = Config.Menu.AddSubMenu("Contaminate usage");
                 MenuClear = Config.Menu.AddSubMenu("Clear");
+                MenuMisc = Config.Menu.AddSubMenu("Misc");
 
                 Combo.Initialize();
                 Harass.Initialize();
                 Draw.Initialize();
                 KillSteal.Initialize();
                 Clear.Initialize();
+                Misc.Initialize();
             }
 
             public static void Initialize()
@@ -123,15 +126,13 @@ namespace AddonTemplate
 
             public static class Harass
             {
-                private static readonly CheckBox _useQ;
                 private static readonly CheckBox _useW;
                 private static readonly CheckBox _useE;
                 private static readonly CheckBox _useR;
+                private static readonly Slider _manaW;
+                private static readonly Slider _manaE;
+                private static readonly Slider _harassStacks;
 
-                public static bool UseQ
-                {
-                    get { return _useQ.CurrentValue; }
-                }
                 public static bool UseW
                 {
                     get { return _useW.CurrentValue; }
@@ -144,14 +145,32 @@ namespace AddonTemplate
                 {
                     get { return _useR.CurrentValue; }
                 }
+                public static int ManaW
+                {
+                    get { return _manaW.CurrentValue; }
+                }
+                public static int ManaE
+                {
+                    get { return _manaE.CurrentValue; }
+                }
+                public static int HarassStacks
+                {
+                    get { return _harassStacks.CurrentValue; }
+                }
 
                 static Harass()
                 {
                     MenuHarass.AddGroupLabel("Harass");
-                    _useQ = MenuHarass.Add("harassUseQ", new CheckBox("Use Q"));
                     _useW = MenuHarass.Add("harassUseW", new CheckBox("Use W"));
                     _useE = MenuHarass.Add("harassUseE", new CheckBox("Use E"));
                     _useR = MenuHarass.Add("harassUseR", new CheckBox("Use R", false)); // Default false
+                    MenuHarass.AddSeparator();
+                    MenuHarass.AddGroupLabel("Mana Management");
+                    _manaW = MenuHarass.Add("harassManaW", new Slider("Minimum mana to use W ({0}%)", 40));
+                    _manaE = MenuHarass.Add("harassManaE", new Slider("Minimum mana to use E ({0}%)", 40));
+                    MenuHarass.AddSeparator();
+                    MenuHarass.AddGroupLabel("Harass stacks");
+                    _harassStacks = MenuHarass.Add("harassStacks", new Slider("How many stacks to use E ({0})", 6, 1, 6));
                 }
 
                 public static void Initialize()
@@ -163,7 +182,27 @@ namespace AddonTemplate
                 private static readonly CheckBox _dmgIndicator;
                 private static readonly CheckBox _sleathDistance;
                 private static readonly CheckBox _miniMapSleathDistance;
+                private static readonly CheckBox _drawW;
+                private static readonly CheckBox _drawE;
+                private static readonly CheckBox _onlyRdy;
+                public static readonly CheckBox _useHax;
+                public static readonly Slider _skinhax;
+                public static string[] skinName = { "Classic Twitch", "Kingpin Twitch", "Whistler Village Twitch", "Medieval Twitch", "Gangster Twitch", "Vandal Twitch", "Pickpocket Twitch", "SSW Twitch"};
 
+                public static bool DrawW
+                {
+                    get { return _drawW.CurrentValue; }
+                }
+
+                public static bool DrawE
+                {
+                    get { return _drawE.CurrentValue; }
+                }
+
+                public static bool OnlyRdy
+                {
+                    get { return _onlyRdy.CurrentValue; }
+                }
                 public static bool DamageIndicator
                 {
                     get { return _dmgIndicator.CurrentValue; }
@@ -176,10 +215,22 @@ namespace AddonTemplate
                 {
                     get { return _miniMapSleathDistance.CurrentValue; }
                 }
+                public static bool UseHax
+                {
+                    get { return _useHax.CurrentValue; }
+                }
+
+                public static int SkinHax
+                {
+                    get { return _skinhax.CurrentValue; }
+                }
 
                 static Draw()
                 {
-                    MenuDraw.AddGroupLabel("Visual");
+                    MenuDraw.AddGroupLabel("Spells range");
+                    _drawW = MenuDraw.Add("drawW", new CheckBox("Draw W"));
+                    _drawE = MenuDraw.Add("drawE", new CheckBox("Draw E"));
+                    _onlyRdy = MenuDraw.Add("onlyRdy", new CheckBox("Draw only when spell is not on cooldown"));
                     MenuDraw.AddSeparator();
                     MenuDraw.AddLabel("HP Bar");
                     _dmgIndicator = MenuDraw.Add("damageIndicator", new CheckBox("Damage Indicator"));
@@ -187,6 +238,10 @@ namespace AddonTemplate
                     MenuDraw.AddLabel("Stealth");
                     _sleathDistance = MenuDraw.Add("stealthdistance", new CheckBox("Stealth Distance"));
                     _miniMapSleathDistance = MenuDraw.Add("minimapstealthdistance", new CheckBox("Stealth Distance on Minimap"));
+                    MenuDraw.AddSeparator();
+                    MenuDraw.AddGroupLabel("Skin hack");
+                    _useHax = MenuDraw.Add("UseHax", new CheckBox("Enable skin hack", false));
+                    _skinhax = MenuDraw.Add("skinhax", new Slider("Skin hack", 0, skinName.Length - 1, 0));
                 }
 
                 public static void Initialize()
@@ -248,36 +303,57 @@ namespace AddonTemplate
                 public static void Initialize()
                 {
                 }
-        }
-
-        public static class Clear
-        {
-            private static readonly CheckBox _eBigMinion;
-            private static readonly CheckBox _eBaronDragon;
-
-            public static bool EBigMinion
-            {
-                get { return _eBigMinion.CurrentValue; }
             }
 
-            public static bool EBaronDragon
+            public static class Clear
             {
-                get { return _eBaronDragon.CurrentValue; }
+                private static readonly CheckBox _eBigMinion;
+                private static readonly CheckBox _eBaronDragon;
+
+                public static bool EBigMinion
+                {
+                    get { return _eBigMinion.CurrentValue; }
+                }
+
+                public static bool EBaronDragon
+                {
+                    get { return _eBaronDragon.CurrentValue; }
+                }
+
+
+
+                static Clear()
+                {
+                    MenuClear.AddGroupLabel("Clear");
+                    _eBaronDragon = MenuClear.Add("ebarondragon", new CheckBox("Use E to secure Baron / Dragon"));
+                    _eBigMinion = MenuClear.Add("ebigminion", new CheckBox("Use E secure cannon minion"));
+                }
+
+                public static void Initialize()
+                {
+                }
             }
 
-
-
-            static Clear()
+            public static class Misc
             {
-                MenuClear.AddGroupLabel("Clear");
-                _eBaronDragon = MenuClear.Add("ebarondragon", new CheckBox("Use E to secure Baron / Dragon"));
-                _eBigMinion = MenuClear.Add("ebigminion", new CheckBox("Use E secure cannon minion"));
-            }
+                public static readonly KeyBind _stealthRecall;
 
-            public static void Initialize()
-            {
+                public static bool StealthRecall
+                {
+                    get { return _stealthRecall.CurrentValue; }
+                }
+
+
+                static Misc()
+                {
+                    MenuClear.AddGroupLabel("Misc");
+                    _stealthRecall = MenuMisc.Add("stealthrecall", new KeyBind("Use stealth recall", true, KeyBind.BindTypes.PressToggle, 'B'));
+                }
+
+                public static void Initialize()
+                {
+                }
             }
         }
     }
-}
 }

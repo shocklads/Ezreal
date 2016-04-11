@@ -33,7 +33,7 @@ namespace AddonTemplate.Modes
             {
                 if (EntityManager.MinionsAndMonsters.EnemyMinions.Any(c => Player.Instance.Position.IsInRange(c.Position, SpellManager.E.Range)
                 && (c.BaseSkinName.Contains("Siege") || c.BaseSkinName.Contains("Super"))
-                && c.Health < DamageHelper.GetEDamage(c)))
+                && c.IsValid && c.Health < DamageHelper.GetEDamage(c)))
                 {
                     E.Cast();
                 }
