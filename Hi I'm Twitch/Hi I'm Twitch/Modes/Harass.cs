@@ -14,12 +14,24 @@ namespace AddonTemplate.Modes
 
         public override void Execute()
         {
-            if (Settings.UseQ /*&& Player.Instance.ManaPercent > Settings.Mana */&& Q.IsReady())
+            if (Settings.UseW && Player.Instance.ManaPercent > Settings.ManaW && W.IsReady())
             {
-                var target = TargetSelector.GetTarget(Q.Range, DamageType.Physical);
+                var target = TargetSelector.GetTarget(W.Range, DamageType.Physical);
                 if (target != null)
                 {
-                    
+                    var predW = W.GetPrediction(target);
+                    W.Cast(predW.CastPosition);
+                }
+            }
+            if (Settings.UseE && Player.Instance.ManaPercent > Settings.ManaE && E.IsReady())
+            {
+                var target = TargetSelector.GetTarget(W.Range, DamageType.Physical);
+                if (target != null)
+                {
+                    if (target.getEStacks() >= Settings.HarassStacks)
+                    {
+                        E.Cast(target);
+                    }
                 }
             }
         }
