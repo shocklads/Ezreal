@@ -63,8 +63,10 @@ namespace AddonTemplate
             {
                 private static readonly CheckBox _useQ;
                 private static readonly CheckBox _useW;
+                private static readonly CheckBox _useWUlt;
                 private static readonly CheckBox _useE;
                 private static readonly CheckBox _useR;
+                private static readonly Slider _numberR;
                 private static readonly Slider _minHPBotrk;
                 private static readonly Slider _enemyMinHPBotrk;
                 private static readonly CheckBox _useYoumuu;
@@ -87,6 +89,10 @@ namespace AddonTemplate
                 {
                     get { return _enemyMinHPBotrk.CurrentValue; }
                 }
+                public static int NumberR
+                {
+                    get { return _numberR.CurrentValue; }
+                }
 
 
                 public static bool UseQ
@@ -96,6 +102,10 @@ namespace AddonTemplate
                 public static bool UseW
                 {
                     get { return _useW.CurrentValue; }
+                }
+                public static bool UseWUlt
+                {
+                    get { return _useWUlt.CurrentValue; }
                 }
                 public static bool UseE
                 {
@@ -111,8 +121,10 @@ namespace AddonTemplate
                     MenuCombo.AddGroupLabel("Combo");
                     _useQ = MenuCombo.Add("comboUseQ", new CheckBox("Use Q"));
                     _useW = MenuCombo.Add("comboUseW", new CheckBox("Use W"));
-                    _useE = MenuCombo.Add("comboUseE", new CheckBox("Use E"));
-                    _useR = MenuCombo.Add("comboUseR", new CheckBox("Use R", false));
+                    _useWUlt = MenuCombo.Add("comboUseWUlt", new CheckBox("Use W during ult", false));
+                    _useE = MenuCombo.Add("comboUseE", new CheckBox("Use E to kill someone"));
+                    _useR = MenuCombo.Add("comboUseR", new CheckBox("Use R if X enemies are in range", false));
+                    _numberR = MenuCombo.Add("numberR", new Slider("Enemies number to use R ({0})", 3, 1, 5));
                     _useYoumuu = MenuCombo.Add("useYoumuu", new CheckBox("Use Youmuu's Ghostblade"));
                     _useBotrk = MenuCombo.Add("useBotrk", new CheckBox("Use Blade of the ruined king"));
                     _minHPBotrk = MenuCombo.Add("minHPBotrk", new Slider("Min health to use Botrk ({0}%)", 80));
@@ -128,7 +140,6 @@ namespace AddonTemplate
             {
                 private static readonly CheckBox _useW;
                 private static readonly CheckBox _useE;
-                private static readonly CheckBox _useR;
                 private static readonly Slider _manaW;
                 private static readonly Slider _manaE;
                 private static readonly Slider _harassStacks;
@@ -140,10 +151,6 @@ namespace AddonTemplate
                 public static bool UseE
                 {
                     get { return _useE.CurrentValue; }
-                }
-                public static bool UseR
-                {
-                    get { return _useR.CurrentValue; }
                 }
                 public static int ManaW
                 {
@@ -163,7 +170,6 @@ namespace AddonTemplate
                     MenuHarass.AddGroupLabel("Harass");
                     _useW = MenuHarass.Add("harassUseW", new CheckBox("Use W"));
                     _useE = MenuHarass.Add("harassUseE", new CheckBox("Use E"));
-                    _useR = MenuHarass.Add("harassUseR", new CheckBox("Use R", false)); // Default false
                     MenuHarass.AddSeparator();
                     MenuHarass.AddGroupLabel("Mana Management");
                     _manaW = MenuHarass.Add("harassManaW", new Slider("Minimum mana to use W ({0}%)", 40));

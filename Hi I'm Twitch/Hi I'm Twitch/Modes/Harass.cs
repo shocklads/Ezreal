@@ -17,7 +17,7 @@ namespace AddonTemplate.Modes
             if (Settings.UseW && Player.Instance.ManaPercent > Settings.ManaW && W.IsReady())
             {
                 var target = TargetSelector.GetTarget(W.Range, DamageType.Physical);
-                if (target != null)
+                if (target != null && target.IsValidTarget())
                 {
                     var predW = W.GetPrediction(target);
                     W.Cast(predW.CastPosition);
@@ -26,11 +26,11 @@ namespace AddonTemplate.Modes
             if (Settings.UseE && Player.Instance.ManaPercent > Settings.ManaE && E.IsReady())
             {
                 var target = TargetSelector.GetTarget(W.Range, DamageType.Physical);
-                if (target != null)
+                if (target != null && target.IsValidTarget())
                 {
                     if (target.getEStacks() >= Settings.HarassStacks)
                     {
-                        E.Cast(target);
+                        E.Cast();
                     }
                 }
             }
