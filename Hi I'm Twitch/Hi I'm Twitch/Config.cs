@@ -315,6 +315,7 @@ namespace AddonTemplate
             {
                 private static readonly CheckBox _eBigMinion;
                 private static readonly CheckBox _eBaronDragon;
+                private static readonly CheckBox _eBigJungle;
 
                 public static bool EBigMinion
                 {
@@ -325,14 +326,19 @@ namespace AddonTemplate
                 {
                     get { return _eBaronDragon.CurrentValue; }
                 }
-
-
+                public static bool eBigJungle
+                {
+                    get { return _eBigJungle.CurrentValue; }
+                }
 
                 static Clear()
                 {
-                    MenuClear.AddGroupLabel("Clear");
-                    _eBaronDragon = MenuClear.Add("ebarondragon", new CheckBox("Use E to secure Baron / Dragon"));
-                    _eBigMinion = MenuClear.Add("ebigminion", new CheckBox("Use E secure cannon minion"));
+                    MenuClear.AddGroupLabel("Auto clear");
+                    _eBaronDragon = MenuClear.Add("ebarondragon", new CheckBox("Always use E to secure Baron / Dragon"));
+                    _eBigMinion = MenuClear.Add("ebigminion", new CheckBox("Always use E to secure cannon minion"));
+                    MenuKillSteal.AddSeparator();
+                    MenuClear.AddGroupLabel("Jungle clear");
+                    _eBigJungle = MenuClear.Add("ebigjungle", new CheckBox("Use E to secure jungle camps"));
                 }
 
                 public static void Initialize()
