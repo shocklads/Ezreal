@@ -5,6 +5,8 @@ using System.Text.RegularExpressions;
 using EloBuddy;
 using EloBuddy.SDK;
 
+using Settings = AddonTemplate.Config.Modes.Clear;
+
 namespace AddonTemplate.Modes
 {
     public sealed class JungleClear : ModeBase
@@ -16,7 +18,7 @@ namespace AddonTemplate.Modes
 
         public override void Execute()
         {
-            if (Config.Modes.Clear.eBigJungle)
+            if (Settings.eBigJungle)
             {
                 var monstersBuff = new List<String>();
                 monstersBuff.Add("SRU_Gromp");

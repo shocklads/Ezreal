@@ -125,6 +125,8 @@ namespace AddonTemplate
                     _useE = MenuCombo.Add("comboUseE", new CheckBox("Use E to kill someone"));
                     _useR = MenuCombo.Add("comboUseR", new CheckBox("Use R if X enemies are in range", false));
                     _numberR = MenuCombo.Add("numberR", new Slider("Enemies number to use R ({0})", 3, 1, 5));
+                    MenuCombo.AddSeparator();
+                    MenuCombo.AddGroupLabel("Item usage");
                     _useYoumuu = MenuCombo.Add("useYoumuu", new CheckBox("Use Youmuu's Ghostblade"));
                     _useBotrk = MenuCombo.Add("useBotrk", new CheckBox("Use Blade of the ruined king"));
                     _minHPBotrk = MenuCombo.Add("minHPBotrk", new Slider("Min health to use Botrk ({0}%)", 80));
@@ -316,6 +318,11 @@ namespace AddonTemplate
                 private static readonly CheckBox _eBigMinion;
                 private static readonly CheckBox _eBaronDragon;
                 private static readonly CheckBox _eBigJungle;
+                private static readonly CheckBox _wLaneClear;
+                private static readonly Slider _wNumber;
+                private static readonly CheckBox _eLaneClear;
+                private static readonly Slider _eNumber;
+                private static readonly Slider _laneClearMana;
 
                 public static bool EBigMinion
                 {
@@ -330,15 +337,43 @@ namespace AddonTemplate
                 {
                     get { return _eBigJungle.CurrentValue; }
                 }
-
+                public static bool WLaneClear
+                {
+                    get { return _wLaneClear.CurrentValue; }
+                }
+                public static int WNumber
+                {
+                    get { return _wNumber.CurrentValue; }
+                }
+                public static bool ELaneClear
+                {
+                    get { return _eLaneClear.CurrentValue; }
+                }
+                public static int ENumber
+                {
+                    get { return _eNumber.CurrentValue; }
+                }
+                public static int LaneClearMana
+                {
+                    get { return _laneClearMana.CurrentValue; }
+                }
                 static Clear()
                 {
                     MenuClear.AddGroupLabel("Auto clear");
                     _eBaronDragon = MenuClear.Add("ebarondragon", new CheckBox("Always use E to secure Baron / Dragon"));
                     _eBigMinion = MenuClear.Add("ebigminion", new CheckBox("Always use E to secure cannon minion"));
-                    MenuKillSteal.AddSeparator();
+                    MenuClear.AddSeparator();
                     MenuClear.AddGroupLabel("Jungle clear");
                     _eBigJungle = MenuClear.Add("ebigjungle", new CheckBox("Use E to secure jungle camps"));
+                    MenuClear.AddSeparator();
+                    MenuClear.AddGroupLabel("Lane clear");
+                    _wLaneClear = MenuClear.Add("wlaneclear", new CheckBox("Use W if X minions hit"));
+                    _wNumber = MenuClear.Add("wnumber", new Slider("How many minions hit to use W ({0})", 4, 1, 15));
+                    MenuClear.AddSeparator();
+                    _eLaneClear = MenuClear.Add("elaneclear", new CheckBox("Use E if X minions will die"));
+                    _eNumber = MenuClear.Add("enumber", new Slider("How many minions kills to use E ({0})", 4, 1, 15));
+                    MenuClear.AddSeparator();
+                    _laneClearMana = MenuClear.Add("laneclearmana", new Slider("Minimum mana to use lane clear spells ({0}%)", 40, 1, 100));
                 }
 
                 public static void Initialize()
@@ -349,17 +384,23 @@ namespace AddonTemplate
             public static class Misc
             {
                 public static readonly KeyBind _stealthRecall;
+                public static readonly CheckBox _useQ;
 
                 public static bool StealthRecall
                 {
                     get { return _stealthRecall.CurrentValue; }
                 }
+                public static bool UseQ
+                {
+                    get { return _useQ.CurrentValue; }
+                }
 
 
                 static Misc()
                 {
-                    MenuClear.AddGroupLabel("Misc");
+                    MenuMisc.AddGroupLabel("Misc");
                     _stealthRecall = MenuMisc.Add("stealthrecall", new KeyBind("Use stealth recall", true, KeyBind.BindTypes.PressToggle, 'B'));
+                    _useQ = MenuMisc.Add("qflee", new CheckBox("Use Q while fleeing"));
                 }
 
                 public static void Initialize()
